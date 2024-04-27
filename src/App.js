@@ -79,7 +79,7 @@ const App = () => {
           element={<EmployeeAttendanceReport />}
         />
 
-        <Route path="/change-password" element={<ChangePassword />} />
+        <Route path="/password/change-password" element={<ChangePassword />} />
       </Routes>
     </Router>
   );

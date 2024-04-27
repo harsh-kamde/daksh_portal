@@ -19,6 +19,7 @@ const items = [
     key: "/",
     icon: <AppstoreOutlined />,
     className: "sidebar-tab",
+    style: { padding: "24px 28px" },
   },
 
   {
@@ -149,15 +150,23 @@ const items = [
 
   {
     label: "Change Password",
-    key: "/change-password",
+    key: "/password",
     icon: <FaLock />,
     className: "sidebar-tab",
+    children: [
+      {
+        label: "Change Password",
+        key: "/password/change-password",
+        className: "sidebar-item",
+      },
+    ],
   },
   {
     label: "Sign Out",
     key: "sign-out",
     icon: <FaSignOutAlt />,
     className: "sidebar-tab",
+    style: { padding: "24px 28px" },
   },
 ];
 

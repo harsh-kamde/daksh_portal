@@ -29,7 +29,7 @@
 }
 
 .ant-btn-primary {
-  background: #ec1839 !important;
+  background: #6d55cf !important;
   color: #fff !important;
   transition: all 0.5s ease !important;
   border: none !important;
@@ -37,7 +37,7 @@
 }
 
 .ant-btn-primary:hover {
-  background: #b9122c !important ;
+  background: #52409c !important ;
 }
 
 /* Edit Scrollbar */

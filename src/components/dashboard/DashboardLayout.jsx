@@ -10,7 +10,7 @@ const DashboardLayout = ({ children }) => {
 
       <div
         className="container-fluid"
-        style={{ marginTop: 80, marginBottom: 50, minHeight: '75vh' }}
+        style={{ marginTop: 80, marginBottom: 50, minHeight: '85vh' }}
       >
         <div className="row">
           <div className="col-md-4 col-lg-4 col-xl-3">

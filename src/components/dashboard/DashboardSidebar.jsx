@@ -212,6 +212,7 @@ const DashboardSidebar = () => {
             mode="inline"
             selectedKeys={[selectedKey]}
             items={items}
+            className="menus"
           />
         </nav>
       </Drawer>

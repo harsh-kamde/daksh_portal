@@ -7,13 +7,21 @@
 }
 
 .profile-sidebar .dashboard-menu .menus {
-  border-right: 0;
+  border-right: 0 !important;
 }
 
 .ant-menu-item-active,
 .ant-menu-item-selected {
   color: black !important;
   background: none !important;
+}
+
+.dashboard-menu .sidebar-tab {
+  border-right: 0 !important;
+  border-radius: 0;
+  width: 100%;
+  padding: 0;
+  margin: 0;
 }
 
 .dashboard-menu .sidebar-item {

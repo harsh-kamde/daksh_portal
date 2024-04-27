@@ -213,6 +213,7 @@ const DashboardSidebar = () => {
             selectedKeys={[selectedKey]}
             items={items}
             className="menus"
+            style={{ borderRight: "0" }}
           />
         </nav>
       </Drawer>

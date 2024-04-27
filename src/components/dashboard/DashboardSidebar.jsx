@@ -1,76 +1,66 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../../stylesheets/DashboardSidebar.css";
-import { Button, Drawer } from "antd";
+import { Menu, Button, Drawer } from "antd";
+import { AppstoreOutlined } from "@ant-design/icons";
 
 import {
-  FaTable,
-  FaCalendarPlus,
-  FaPrescription,
-  FaClock,
-  FaFileInvoice,
-  FaStar,
-  FaRegStar,
-  FaUserCog,
-  FaBlog,
-  FaSignOutAlt,
+  FaUserTie,
+  FaChalkboardTeacher,
+  FaBookOpen,
   FaLock,
-  FaHeartbeat,
-  FaHome,
-  FaListUl,
-  FaRegAddressCard,
-  FaRegCommentDots,
+  FaEye,
+  FaSignOutAlt,
 } from "react-icons/fa";
 
-import {
-  AppstoreOutlined,
-  MailOutlined,
-  SettingOutlined,
-} from "@ant-design/icons";
-import { Menu } from "antd";
-
 const items = [
-  { label: "Dashboard", key: "/", icon: <AppstoreOutlined /> },
+  {
+    label: "Dashboard",
+    key: "/",
+    icon: <AppstoreOutlined />,
+    className: "sidebar-tab",
+  },
 
   {
     label: "Masters",
-    key: "/master",
-    icon: <MailOutlined />,
+    key: "/masters",
+    icon: <FaUserTie />,
+    className: "sidebar-tab",
     children: [
       {
         label: "Device Master",
-        key: "/master/device-master",
-        icon: <MailOutlined />,
+        key: "/masters/device-master",
+        className: "sidebar-item",
       },
       {
         label: "Center Master",
-        key: "/master/center-master",
-        icon: <MailOutlined />,
+        key: "/masters/center-master",
+        className: "sidebar-item",
       },
       {
         label: "Course Map",
-        key: "/master/course-map",
-        icon: <MailOutlined />,
+        key: "/masters/course-map",
+        className: "sidebar-item",
       },
       {
         label: "Batch Master",
-        key: "/master/batch-master",
-        icon: <MailOutlined />,
+        key: "/masters/batch-master",
+        className: "sidebar-item",
       },
       {
         label: "Student Master",
-        key: "/master/student-master",
-        icon: <MailOutlined />,
+        key: "/masters/student-master",
+        className: "sidebar-item",
       },
       {
         label: "Faculty Master",
-        key: "/master/faculty-master",
-        icon: <MailOutlined />,
+        key: "/masters/faculty-master",
+        className: "sidebar-item",
       },
       {
         label: "Faculty Map",
-        key: "/master/faculty-map",
-        icon: <MailOutlined />,
+        key: "/masters/faculty-map",
+        className: "sidebar-item",
       },
     ],
   },
@@ -78,37 +68,38 @@ const items = [
   {
     label: "View",
     key: "/view",
-    icon: <SettingOutlined />,
+    icon: <FaEye />,
+    className: "sidebar-tab",
     children: [
       {
         label: "Device List",
         key: "/view/device-list",
-        icon: <MailOutlined />,
+        className: "sidebar-item",
       },
       {
         label: "Center List",
         key: "/view/center-list",
-        icon: <MailOutlined />,
+        className: "sidebar-item",
       },
       {
         label: "Course List",
         key: "/view/course-list",
-        icon: <MailOutlined />,
+        className: "sidebar-item",
       },
       {
         label: "Batch List",
         key: "/view/batch-list",
-        icon: <MailOutlined />,
+        className: "sidebar-item",
       },
       {
         label: "Student List",
         key: "/view/student-list",
-        icon: <MailOutlined />,
+        className: "sidebar-item",
       },
       {
         label: "Faculty List",
         key: "/view/faculty-list",
-        icon: <MailOutlined />,
+        className: "sidebar-item",
       },
     ],
   },
@@ -116,27 +107,28 @@ const items = [
   {
     label: "Student Reports",
     key: "/student-reports",
-    icon: <SettingOutlined />,
+    icon: <FaBookOpen />,
+    className: "sidebar-tab",
     children: [
       {
         label: "Daily Attendance Report",
         key: "/student-reports/daily-attendance-report",
-        icon: <MailOutlined />,
+        className: "sidebar-item",
       },
       {
         label: "Student Progress",
         key: "/student-reports/student-progress",
-        icon: <MailOutlined />,
+        className: "sidebar-item",
       },
       {
         label: "Batch Wise Attendance Report",
         key: "/student-reports/batch-wise-attendance-report",
-        icon: <MailOutlined />,
+        className: "sidebar-item",
       },
       {
         label: "Month Wise Attendance Report",
         key: "/student-reports/month-wise-attendance-report",
-        icon: <MailOutlined />,
+        className: "sidebar-item",
       },
     ],
   },
@@ -144,12 +136,13 @@ const items = [
   {
     label: "Faculty Reports",
     key: "/faculty-reports",
-    icon: <SettingOutlined />,
+    icon: <FaChalkboardTeacher />,
+    className: "sidebar-tab",
     children: [
       {
         label: "Employee Attendance Report",
         key: "/faculty-reports/employee-attendance-report",
-        icon: <MailOutlined />,
+        className: "sidebar-item",
       },
     ],
   },
@@ -157,33 +150,21 @@ const items = [
   {
     label: "Change Password",
     key: "/change-password",
-    icon: <MailOutlined />,
+    icon: <FaLock />,
+    className: "sidebar-tab",
   },
   {
     label: "Sign Out",
     key: "sign-out",
-    icon: <MailOutlined />,
+    icon: <FaSignOutAlt />,
+    className: "sidebar-tab",
   },
 ];
 
-const getLevelKeys = (items1) => {
-  const key = {};
-  const func = (items2, level = 1) => {
-    items2.forEach((item) => {
-      if (item.key) {
-        key[item.key] = level;
-      }
-      if (item.children) {
-        return func(item.children, level + 1);
-      }
-    });
-  };
-  func(items1);
-  return key;
-};
-
 const DashboardSidebar = () => {
   const navigate = useNavigate();
+
+  const [selectedKey, setSelectedKey] = useState("/");
 
   const [open, setOpen] = useState(false);
   const showDrawer = () => {
@@ -197,17 +178,18 @@ const DashboardSidebar = () => {
     if (key === "sign-out") {
       // Sign out logic
     } else {
+      setSelectedKey(key);
       navigate(key);
     }
   };
 
   return (
-    <div className="profile-sidebar p-3 rounded">
+    <div className="profile-sidebar">
       {/* Show Drawer Button in Small Devices */}
       <Button
         type="primary"
         shape="circle"
-        icon={<i class="fa-solid fa-user" />}
+        icon={<i class="fa-solid fa-bars"></i>}
         size="large"
         className="dashboard-drawer-btn"
         onClick={showDrawer}
@@ -217,17 +199,18 @@ const DashboardSidebar = () => {
         <Menu
           onClick={onMenuClick}
           mode="inline"
-          defaultSelectedKeys={["/"]}
+          selectedKeys={[selectedKey]}
           items={items}
+          className="menus"
         />
       </nav>
 
-      <Drawer title="Dashboard" onClose={onClose} open={open}>
+      <Drawer title="PM-DAKSH" onClose={onClose} open={open}>
         <nav className="dashboard-menu">
           <Menu
             onClick={onMenuClick}
             mode="inline"
-            defaultSelectedKeys={["/"]}
+            selectedKeys={[selectedKey]}
             items={items}
           />
         </nav>

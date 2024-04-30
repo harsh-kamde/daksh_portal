@@ -63,6 +63,10 @@
     color: var(--primaryHoverColor) !important;
   }
 
+  .dashboard-drawer-btn:hover{
+    background: none !important;
+  }
+
   .dashboard-menu-sidebar {
     display: none;
   }

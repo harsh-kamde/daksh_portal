@@ -149,7 +149,7 @@ const items = [
   },
 
   {
-    label: "Change Password",
+    label: "Password",
     key: "/password",
     icon: <FaLock />,
     className: "sidebar-tab",

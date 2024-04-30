@@ -1,46 +1,36 @@
 import React, { useState } from "react";
+import { Select, DatePicker, Button } from "antd";
 import DashboardLayout from "../dashboard/DashboardLayout";
-import { Link } from "react-router-dom";
-import { useForm } from "react-hook-form";
 import "../../stylesheets/Form.css";
 
-import { message } from "antd";
-import moment from "moment";
-import { DatePicker, Select } from "antd";
+
+const { Option } = Select;
 
 const EmployeeAttendanceReport = () => {
-  const { register, handleSubmit } = useForm({});
-
-  const [selectValue, setSelectValue] = useState({});
-
-  const [date, setDate] = useState(null);
-
-  const { Option } = Select;
+  const [formData, setFormData] = useState({
+    pia: "",
+    state: "",
+    center: "",
+    from: undefined,
+    to: undefined,
+  });
 
   const handleChange = (value, name) => {
-    setSelectValue({ ...selectValue, [name]: value });
+    setFormData({ ...formData, [name]: value });
   };
 
-  const onChange = (date, dateString) => {
-    console.log(date, dateString);
+  const handleDateChange = (date, name) => {
+    setFormData({ ...formData, [name]: date });
   };
 
-  const onSubmit = (data) => {
-    const url = "";
-    fetch(url, {
-      method: "POST",
-      body: JSON.stringify(data),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((response) => response.json())
-      .then((jsonData) => {
-        console.log(jsonData);
-      })
-      .catch((error) => {
-        console.error("Error fetching data:", error);
-      });
+  const onSubmit = (event) => {
+    event.preventDefault();
+    const formattedData = {
+      ...formData,
+      from: formData.from ? formData.from.format("YYYY-MM-DD") : null,
+      to: formData.to ? formData.to.format("YYYY-MM-DD") : null,
+    };
+    console.log(JSON.stringify(formattedData, null, 2));
   };
 
   return (
@@ -49,15 +39,15 @@ const EmployeeAttendanceReport = () => {
         <div className="w-100 mb-3 rounded mb-5 p-2">
           <h5 className="text-title mb-5 mt-3">Select Location</h5>
 
-          <form className="row form-row" onSubmit={handleSubmit(onSubmit)}>
+          <form className="row form-row" onSubmit={onSubmit}>
             <div className="col-md-6">
               <div className="form-group mb-2 card-label">
                 <label className="label-style">PIA</label>
                 <Select
-                  defaultValue={"Select"}
                   className="dropdown"
                   onChange={(value) => handleChange(value, "pia")}
                   placeholder="PIA"
+                  value={formData.pia}
                 >
                   <Option value="option1">Option 1</Option>
                   <Option value="option2">Option 2</Option>
@@ -70,10 +60,10 @@ const EmployeeAttendanceReport = () => {
               <div className="form-group mb-2 card-label">
                 <label className="label-style">State</label>
                 <Select
-                  defaultValue={"Select"}
                   className="dropdown"
                   onChange={(value) => handleChange(value, "state")}
                   placeholder="State"
+                  value={formData.state}
                 >
                   <Option value="mp">Madhya Pradesh</Option>
                 </Select>
@@ -84,10 +74,10 @@ const EmployeeAttendanceReport = () => {
               <div className="form-group mb-2 card-label">
                 <label className="label-style">Center</label>
                 <Select
-                  defaultValue={"Select"}
                   className="dropdown"
                   onChange={(value) => handleChange(value, "center")}
                   placeholder="Center"
+                  value={formData.center}
                 >
                   <Option value="center1">Center 1</Option>
                   <Option value="center2">Center 2</Option>
@@ -100,8 +90,8 @@ const EmployeeAttendanceReport = () => {
               <div className="form-group mb-2 card-label">
                 <DatePicker
                   placeholder="From"
-                  onChange={onChange}
-                  format={"YYYY-MM-DD"}
+                  onChange={(date) => handleDateChange(date, "from")}
+                  format="YYYY-MM-DD"
                   className="text-input-field date-picker"
                   style={{ marginTop: "14.5px", padding: "12px 16px" }}
                 />
@@ -112,8 +102,8 @@ const EmployeeAttendanceReport = () => {
               <div className="form-group mb-2 card-label">
                 <DatePicker
                   placeholder="To"
-                  onChange={onChange}
-                  format={"YYYY-MM-DD"}
+                  onChange={(date) => handleDateChange(date, "to")}
+                  format="YYYY-MM-DD"
                   className="text-input-field date-picker"
                   style={{ marginTop: "14.5px", padding: "12px 16px" }}
                 />
@@ -122,7 +112,7 @@ const EmployeeAttendanceReport = () => {
 
             <div className="text-center">
               <button type="submit" className="btn btn-danger my-3">
-                {"Show"}
+                {"Submit"}
               </button>
             </div>
           </form>

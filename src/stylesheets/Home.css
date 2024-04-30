@@ -9,6 +9,8 @@
   background: var(--bgLight);
   transition: all 0.35s ease;
   cursor: pointer;
+  border-bottom: 0;
+  box-shadow: var(--materialShadow);
 }
 
 .info-card:hover {
@@ -24,30 +26,15 @@
   border-radius: 50%;
   width: 120px;
   height: 120px;
-  background: var(--bgColor);
+  color: #7452ff;
+  border-color: #cfc2db;
+  background: #f2e6ff;
 }
 
 .info-card .info-icon i {
   font-size: 4rem;
 }
 
-.info-card .first-icon {
-  color: #e01736;
-  border-color: #dbc5cb;
-  background: #ffe6ea;
-}
-
-.info-card .second-icon {
-  color: #7452ff;
-  border-color: #cfc2db;
-  background: #f2e6ff;
-}
-
-.info-card .third-icon {
-  color: #06de83;
-  border-color: #cbdbc5;
-  background: #e6ffe8;
-}
 
 .info-card .info-count {
   font-size: 2.5rem;
@@ -59,29 +46,9 @@
 .info-card .info-label {
   color: var(--textLight);
   font-weight: 500;
-  font-size: 1rem;
+  font-size: 14px;
+  text-align: center;
   margin: 0;
-}
-
-.info-card .btn-1 {
-  background: #e01736 !important;
-}
-.info-card .btn-1:hover {
-  background: #ad1129 !important;
-}
-
-.info-card .btn-2 {
-  background: #7452ff !important;
-}
-.info-card .btn-2:hover {
-  background: #5c41cc !important;
-}
-
-.info-card .btn-3 {
-  background: #06de83 !important;
-}
-.info-card .btn-3:hover {
-  background: #04ab64 !important;
 }
 
 @media (max-width: 768px) {

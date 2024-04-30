@@ -10,7 +10,7 @@ const Home = () => {
         <div className="row mt-4">
           <div className="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 mb-3">
             <div className="info-card">
-              <span className="info-icon first-icon">
+              <span className="info-icon">
                 <i class="fa-solid fa-school"></i>
               </span>
 
@@ -18,7 +18,7 @@ const Home = () => {
 
               <p className="info-label">Total PIA's Registered</p>
 
-              <Button type="primary" size="medium" className="btn-1">
+              <Button type="primary" size="medium">
                 View
               </Button>
             </div>
@@ -26,7 +26,7 @@ const Home = () => {
 
           <div className="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 mb-3">
             <div className="info-card">
-              <span className="info-icon second-icon">
+              <span className="info-icon">
                 <i class="fa-solid fa-book-open-reader"></i>
               </span>
 
@@ -34,7 +34,7 @@ const Home = () => {
 
               <p className="info-label">Total Batches Registered</p>
 
-              <Button type="primary" size="medium" className="btn-2">
+              <Button type="primary" size="medium">
                 View
               </Button>
             </div>
@@ -42,7 +42,7 @@ const Home = () => {
 
           <div className="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 mb-3">
             <div className="info-card">
-              <span className="info-icon third-icon">
+              <span className="info-icon">
                 <i class="fa-solid fa-check"></i>
               </span>
 
@@ -50,7 +50,7 @@ const Home = () => {
 
               <p className="info-label">Total Batches Pending For Approval</p>
 
-              <Button type="primary" size="medium" className="btn-3">
+              <Button type="primary" size="medium">
                 View
               </Button>
             </div>

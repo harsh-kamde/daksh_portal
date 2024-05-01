@@ -195,7 +195,7 @@ const BatchMaster = () => {
             </div>
 
             <div className="text-center">
-              <button type="submit" className="btn btn-danger my-3">
+              <button type="submit" className="btn my-3">
                 {"Save"}
               </button>
             </div>

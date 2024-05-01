@@ -21,6 +21,8 @@ import BatchList from "./components/view/BatchList";
 import StudentList from "./components/view/StudentList";
 import FacultyList from "./components/view/FacultyList";
 
+import Login from "./components/Login";
+
 // student reports
 import DailyAttendanceReport from "./components/student_reports/DailyAttendanceReport";
 import StudentProgress from "./components/student_reports/StudentProgress";
@@ -36,7 +38,8 @@ const App = () => {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<Login />} />
+        <Route path="/dashboard" element={<Home />} />
 
         {/* master */}
         <Route path="/masters/device-master" element={<DeviceMaster />} />

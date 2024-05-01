@@ -1,3 +1,10 @@
+.login-form{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
 .change-avatar {
   display: flex;
   align-items: center;
@@ -70,6 +77,19 @@
 .upload-btn {
   margin: 1rem 0;
   text-align: center;
+}
+
+.btn{
+  background: var(--primaryColor) !important;
+  color: white !important;
+  outline: none !important;
+}
+
+.btn:hover,
+.btn:focus
+{
+  background: var(--primaryHoverColor) !important;
+  color: white !important;
 }
 
 @media (max-width: 768px) {

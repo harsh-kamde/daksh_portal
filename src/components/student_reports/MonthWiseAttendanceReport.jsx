@@ -10,6 +10,7 @@ const MonthWiseAttendanceReport = () => {
   const [formData, setFormData] = useState({
     pia: "Select PIA",
     state: "Select State",
+    district: "Select District",
     center: "Select Center",
     course: "Select Course",
     batch: "Select Batch",
@@ -29,6 +30,114 @@ const MonthWiseAttendanceReport = () => {
     console.log(JSON.stringify(formattedData, null, 2));
   };
 
+  const districtOptions = () => {
+    if (formData.state === "Madhya Pradesh") {
+      return (
+        <>
+          <Option value="Bhopal">Bhopal</Option>
+          <Option value="Raisen">Raisen</Option>
+          <Option value="Morena">Morena</Option>
+          <Option value="Gwaliar">Gwaliar</Option>
+          <Option value="Bhind">Bhind</Option>
+          <Option value="Khandwa">Khandwa</Option>
+        </>
+      );
+    } else if (formData.state === "Uttar Pradesh") {
+      return (
+        <>
+          <Option value="Farrukhabad">Farrukhabad</Option>
+          <Option value="Moradabad">Moradabad</Option>
+        </>
+      );
+    } else {
+      return null;
+    }
+  };
+
+
+  const courseOptions = () => {
+    if (formData.district === "Bhopal") {
+      return (
+        <>
+          <Option value="Welder ( GTAW)">Welder ( GTAW)</Option>
+          <Option
+            value="Customer Care Executive"
+          >
+            Customer Care Executive
+          </Option>
+        </>
+      );
+    } else if (formData.district === "Raisen") {
+      return (
+        <>
+          <Option value="Customer Care Executive">
+            Customer Care Executive
+          </Option>
+          <Option value="Self Employed Tailor">Self Employed Tailor</Option>
+        </>
+      );
+    } else if (formData.district === "Morena") {
+      return (
+        <>
+          <Option value="Customer Care Executive">
+            Customer Care Executive
+          </Option>
+          <Option value="Self Employed Tailor">Self Employed Tailor</Option>
+          <Option value="Welder ( GTAW)">Welder ( GTAW)</Option>
+        </>
+      );
+    } else if (formData.district === "Gwalior") {
+      return (
+        <>
+          <Option value="Customer Care Executive">
+            Customer Care Executive
+          </Option>
+          <Option value="Jute Products Stiching Operator">
+            Jute Products Stiching Operator
+          </Option>
+        </>
+      );
+    } else if (formData.district === "Bhind") {
+      return (
+        <>
+          <Option value="Customer Care Executive">
+            Customer Care Executive
+          </Option>
+          <Option value="Self Employed Tailor">Self Employed Tailor</Option>
+        </>
+      );
+    } else if (formData.district === "Khandwa") {
+      return (
+        <>
+          <Option value="Jute Products Stiching Operator">
+            Jute Products Stiching Operator
+          </Option>
+          <Option value="Self Employed Tailor">Self Employed Tailor</Option>
+        </>
+      );
+    } else if (formData.district === "Farrukhabad") {
+      return (
+        <>
+          <Option value="Customer Care Executive">
+            Customer Care Executive
+          </Option>
+          <Option value="Self Employed Tailor">Self Employed Tailor</Option>
+        </>
+      );
+    } else if (formData.district === "Moradabad") {
+      return (
+        <>
+          <Option value="Customer Care Executive">
+            Customer Care Executive
+          </Option>
+          <Option value="Account Executive">Account Executive</Option>
+        </>
+      );
+    } else {
+      return null;
+    }
+  };
+
   return (
     <DashboardLayout>
       <div className="profile-setting" style={{ marginBottom: "10rem" }}>
@@ -45,9 +154,9 @@ const MonthWiseAttendanceReport = () => {
                   placeholder="PIA"
                   value={formData.pia}
                 >
-                  <Option value="PIA 1">PIA 1</Option>
-                  <Option value="PIA 2">PIA 2</Option>
-                  <Option value="PIA 3">PIA 3</Option>
+                  <Option value="Mathura Devi Shiksha Prasar Evam Samaj Kalyan Samiti">
+                    Mathura Devi Shiksha Prasar Evam Samaj Kalyan Samiti
+                  </Option>
                 </Select>
               </div>
             </div>
@@ -62,6 +171,21 @@ const MonthWiseAttendanceReport = () => {
                   value={formData.state}
                 >
                   <Option value="Madhya Pradesh">Madhya Pradesh</Option>
+                  <Option value="Uttar Pradesh">Uttar Pradesh</Option>
+                </Select>
+              </div>
+            </div>
+
+            <div className="col-md-6">
+              <div className="form-group mb-2 card-label">
+                <label className="label-style">District</label>
+                <Select
+                  className="dropdown"
+                  onChange={(value) => handleChange(value, "district")}
+                  placeholder="District"
+                  value={formData.district}
+                >
+                  {districtOptions()}
                 </Select>
               </div>
             </div>
@@ -91,9 +215,7 @@ const MonthWiseAttendanceReport = () => {
                   placeholder="Course"
                   value={formData.course}
                 >
-                  <Option value="Course 1">Course 1</Option>
-                  <Option value="Course 2">Course 2</Option>
-                  <Option value="Course 3">Course 3</Option>
+                  {courseOptions()}
                 </Select>
               </div>
             </div>

@@ -1,25 +1,53 @@
 import React, { useState } from "react";
 import "../stylesheets/Form.css";
 import Header from "./common/Header";
+import { toast } from 'react-toastify';
+
+const URL = 'http://localhost:5009/api/v1/auth/admin-login';
 
 const Login = () => {
   const [user, setUser] = useState({
-    id: "",
+    email: "",
     password: "",
   });
 
-  const handleChange = (value, name) => {
+  const [isLoading, setIsLoading] = useState(false);
+  const [errors, setErrors] = useState({});
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
     setUser({ ...user, [name]: value });
+    setErrors({ ...errors, [name]: "" }); // Clear error on input change
   };
 
-  const onSubmit = async (event) => {
-    event.preventDefault();
-    const formattedData = {
-      ...user,
-    };
-    console.log(JSON.stringify(formattedData, null, 2));
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setIsLoading(true);
+    console.log(user);
+    try {
+      const response = await fetch(URL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(user),
+      });
 
-    
+      if (response.ok) {
+        alert("Login Successful")
+        toast.success("Login Successful");
+        setUser({ email: "", password: "" });
+      } else {
+        alert("Invalid credentials")
+        // throw new Error("Invalid credentials");
+      }
+    } catch (error) {
+      alert("Server Error")
+      toast.error("Invalid credentials");
+      setErrors({ ...errors, login: error.message }); // Set login error
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -28,7 +56,7 @@ const Login = () => {
 
       <div className="profile-setting">
         <div className="login-form">
-          <form className="row form-row" onSubmit={onSubmit}>
+          <form className="row form-row" onSubmit={handleSubmit}>
             <div className="col-md-12">
               <div className="form-group mb-2 card-label">
                 <label className="label-style">
@@ -37,9 +65,12 @@ const Login = () => {
                 <input
                   placeholder="ID"
                   className="text-input-field"
-                  value={user.id}
-                  onChange={(e) => handleChange(e.target.value, "id")}
+                  name="email"
+                  value={user.email}
+                  onChange={handleChange}
+                  disabled={isLoading}
                 />
+                {errors.email && <div className="text-danger">{errors.email}</div>}
               </div>
             </div>
 
@@ -51,16 +82,19 @@ const Login = () => {
                 <input
                   placeholder="Password"
                   className="text-input-field"
+                  name="password"
                   value={user.password}
                   type="password"
-                  onChange={(e) => handleChange(e.target.value, "password")}
+                  onChange={handleChange}
+                  disabled={isLoading}
                 />
+                {errors.password && <div className="text-danger">{errors.password}</div>}
               </div>
             </div>
 
             <div className="text-center">
-              <button type="submit" className="btn my-3">
-                {"Submit"}
+              <button type="submit" className="btn my-3" disabled={isLoading}>
+                {isLoading ? "Loading..." : "Submit"}
               </button>
             </div>
           </form>

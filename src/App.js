@@ -1,5 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import AttendanceReport from "./components/AttendanceReport";
 import "./App.css";
 
 import Home from "./components/Home";
@@ -74,6 +75,10 @@ const App = () => {
         <Route
           path="/student-reports/month-wise-attendance-report"
           element={<MonthWiseAttendanceReport />}
+        />
+        <Route
+          path="/student-reports/month-wise-attendance-report/report"
+          element={<AttendanceReport />}
         />
 
         {/* faculty reports */}

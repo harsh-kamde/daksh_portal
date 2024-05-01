@@ -1,0 +1,67 @@
+.print-btn{
+    margin-right: 1rem;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+}
+
+.report-header{
+    padding: 1rem;
+    margin: 1rem;
+    text-align: center;
+}
+
+.report-header .name{
+    font-size: 1rem;
+    font-weight: bold;
+    color: var(--headingColor);
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+}
+
+.report-header .report-data{
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    justify-content: space-between;
+    border: 1px solid var(--borderColor);
+    padding: 1rem;
+    padding-bottom: 0.5rem;
+}
+
+.report-header .report-data h5{
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--textColor);
+}
+
+.report-header .report-data p{
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--textLight);
+    margin-bottom: 0.5rem;
+}
+
+
+.report{
+    border: 1.5px solid var(--borderColor);
+    margin: 1rem;
+    border-radius: 8px;
+}
+
+.report .traineeDetail{
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    padding: 0.75rem 0.75rem 0.25rem 0.5rem;
+    border-radius: 7px 7px 0 0;
+    background: #ecdfb5;
+    border-bottom: 1.5px solid var(--borderColor);
+}
+
+.report .traineeDetail h3{
+    font-size: 1rem;
+    font-weight: bold;
+    color: var(--headingColor);
+}
+

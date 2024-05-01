@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { Select, DatePicker, Button } from "antd";
+import { Select } from "antd";
+import { NavLink } from "react-router-dom";
 import DashboardLayout from "../dashboard/DashboardLayout";
 import "../../stylesheets/Form.css";
 
@@ -155,9 +156,16 @@ const MonthWiseAttendanceReport = () => {
             </div>
 
             <div className="text-center">
-              <button type="submit" className="btn my-3">
+              {/* <button type="submit" className="btn my-3">
                 {"Submit"}
-              </button>
+              </button> */}
+
+              <NavLink
+                className="btn my-3"
+                to={"/student-reports/month-wise-attendance-report/report"}
+              >
+                Show Report
+              </NavLink>
             </div>
           </form>
         </div>

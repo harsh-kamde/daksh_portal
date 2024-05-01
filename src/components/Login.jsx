@@ -2,10 +2,15 @@ import React, { useState } from "react";
 import "../stylesheets/Form.css";
 import Header from "./common/Header";
 import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
+
 
 const URL = 'http://localhost:5009/api/v1/auth/admin-login';
 
 const Login = () => {
+
+  const navigate = useNavigate();
+
   const [user, setUser] = useState({
     email: "",
     password: "",
@@ -23,7 +28,7 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
-    console.log(user);
+    // console.log(user);
     try {
       const response = await fetch(URL, {
         method: "POST",
@@ -36,10 +41,10 @@ const Login = () => {
       if (response.ok) {
         alert("Login Successful")
         toast.success("Login Successful");
+        navigate('/dashboard');
         setUser({ email: "", password: "" });
       } else {
         alert("Invalid credentials")
-        // throw new Error("Invalid credentials");
       }
     } catch (error) {
       alert("Server Error")

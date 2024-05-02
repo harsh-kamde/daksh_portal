@@ -1,13 +1,25 @@
 import React from "react";
 import "../stylesheets/AttendanceReport.css";
+import { useAuth } from "../store/auth";
 
 const AttendanceReportCard = () => {
+    const {
+      authorizationToken,
+      monthlyAttendanceData,
+      setMonthlyAttendanceData,
+    } = useAuth();
+
+    let data = JSON.stringify(monthlyAttendanceData);
+    
   return (
     <div className="report">
       <div className="traineeDetail">
         <h3>Trainee Name:</h3>
         <h3>Trainee Name</h3>
       </div>
+
+      {console.log("Ha bhai me hu: " + data)}
+      {console.log("My data: " + data)}
 
       <div className="table-responsive">
         <table className="table">

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Select } from "antd";
-import { NavLink } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../store/auth";
 import DashboardLayout from "../dashboard/DashboardLayout";
 import "../../stylesheets/Form.css";
@@ -11,7 +11,7 @@ const { Option } = Select;
 
 const MonthWiseAttendanceReport = () => {
   const [data, setData] = useState();
-
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     pia: "Select PIA",
     state: "Select State",
@@ -57,9 +57,10 @@ const MonthWiseAttendanceReport = () => {
         console.log(responseData);
         // setData(responseData);
         setMonthlyAttendanceData(responseData);
+        console.log("month wise data check: "+JSON.stringify(monthlyAttendanceData));
         console.log("month wise data check: "+monthlyAttendanceData);
-        // console.log("month wise data check: "+monthlyAttendanceData);
         alert("monthly Successful")
+        navigate("/student-reports/month-wise-attendance-report/report");
 
       } else {
         alert("Invalid credentials")

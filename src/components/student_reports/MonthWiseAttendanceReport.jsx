@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import { Select } from "antd";
 import { NavLink } from "react-router-dom";
+import { useAuth } from "../../store/auth";
 import DashboardLayout from "../dashboard/DashboardLayout";
 import "../../stylesheets/Form.css";
+const URL = 'http://localhost:5009/api/v1/attendance/monthlyAttendance';
 
 const { Option } = Select;
 
@@ -17,17 +19,48 @@ const MonthWiseAttendanceReport = () => {
     batchType: "Select Batch Type",
     month: "Select Month",
   });
+  const { authorizationToken } = useAuth();
 
   const handleChange = (value, name) => {
     setFormData({ ...formData, [name]: value });
   };
 
-  const onSubmit = (event) => {
+  const onSubmit = async (event) => {
     event.preventDefault();
     const formattedData = {
       ...formData,
     };
-    console.log(JSON.stringify(formattedData, null, 2));
+
+    // e.preventDefault();
+    // setIsLoading(true);
+    // console.log(user);
+    try {
+      const response = await fetch(URL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: authorizationToken,
+        },
+        body: JSON.stringify(formattedData),
+      });
+
+      if (response.ok) {
+        const responseData = await response.json(); // Parse JSON response
+        // Store responseData in state or variable
+        console.log(responseData);
+        alert("monthly Successful")
+
+      } else {
+        alert("Invalid credentials")
+      }
+    } catch (error) {
+      alert("Server Error")
+
+    } finally {
+      // setIsLoading(false);
+    }
+
+    // console.log(JSON.stringify(formattedData, null, 2));
   };
 
   const districtOptions = () => {
@@ -278,16 +311,16 @@ const MonthWiseAttendanceReport = () => {
             </div>
 
             <div className="text-center">
-              {/* <button type="submit" className="btn my-3">
+              <button type="submit" className="btn my-3">
                 {"Submit"}
-              </button> */}
+              </button>
 
-              <NavLink
+              {/* <NavLink
                 className="btn my-3"
                 to={"/student-reports/month-wise-attendance-report/report"}
               >
                 Show Report
-              </NavLink>
+              </NavLink> */}
             </div>
           </form>
         </div>

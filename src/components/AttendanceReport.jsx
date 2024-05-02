@@ -9,10 +9,13 @@ const dataCenter = JSON.parse(localStorage.getItem("center_data"));
 
 const AttendanceReport = () => {
 
+  const batch_details = localStorage.getItem("batch");
+
   const {
     authorizationToken,
     monthlyAttendanceData,
     setMonthlyAttendanceData,
+    batchData
   } = useAuth();
 
   return (
@@ -40,6 +43,7 @@ const AttendanceReport = () => {
 
         <div className="report-data">
           <p>Course Name</p>
+          {console.log("I am ", JSON.stringify(batch_details))}
           <p>Batch Id</p>
           <p>Month-Year</p>
         </div>

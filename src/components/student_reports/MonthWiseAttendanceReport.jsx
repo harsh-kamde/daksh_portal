@@ -53,10 +53,12 @@ const MonthWiseAttendanceReport = () => {
       });
 
       if (response.ok) {
-        const {responseData, batchData }= await response.json(); // Parse JSON response
+        const responseData = await response.json(); // Parse JSON response
         // Store responseData in state or variable
-        console.log(responseData);
-        console.log(batchData);
+        console.log("response"+responseData);
+        // setBatchData(batchData);
+        // console.log("batchData:"+batchData);
+        // localStorage.setItem("batch", batchData);
         // setData(responseData);
         setMonthlyAttendanceData(responseData);
         console.log("month wise data check: "+JSON.stringify(monthlyAttendanceData));

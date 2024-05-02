@@ -1,9 +1,65 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import DashboardLayout from "./dashboard/DashboardLayout";
 import "../stylesheets/Home.css";
 import { Button } from "antd";
 
+import { API_URL } from "../store/apiurl";
+
 const Home = () => {
+  const authorizationToken = localStorage.getItem("token");
+
+  
+  const [studentCount, setStudentCount] = useState(0);
+  const [centerCount, setCenterCount] = useState(0);
+  const [batchCount, setBatchCount] = useState(0);
+  
+  console.log(authorizationToken);
+  console.log("Student count: ", studentCount);
+  console.log("Center count: ", centerCount);
+  console.log("Batch count: ", batchCount);
+
+  const fetchCounts = async () => {
+    try {
+      // Fetch student count
+      const studentResponse = await fetch(`${API_URL}/api/v1/student/student`, {
+        method: "GET",
+        headers: {
+          Authorization: authorizationToken,
+        },
+      });
+      const studentData = await studentResponse.json();
+      
+      setStudentCount(studentData.length);
+
+      // Fetch batch count
+      const batchResponse = await fetch(`${API_URL}/api/v1/batch/batches`, {
+        method: "GET",
+        headers: {
+          Authorization: authorizationToken,
+        },
+      });
+      const batchData = await batchResponse.json();
+      console.log("Batch Data is : ", batchData);
+      setBatchCount(batchData.length);
+
+      // Fetch center count
+      const centerResponse = await fetch(`${API_URL}/api/v1/center/center`, {
+        method: "GET",
+        headers: {
+          Authorization: authorizationToken,
+        },
+      });
+      const centerData = await centerResponse.json();
+      setCenterCount(centerData.length);
+    } catch (error) {
+      console.error("Error fetching counts:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchCounts();
+  }, []);
+
   return (
     <>
       <DashboardLayout>
@@ -14,9 +70,9 @@ const Home = () => {
                 <i class="fa-solid fa-school"></i>
               </span>
 
-              <h3 className="info-count">{"0"}</h3>
+              <h3 className="info-count">{studentCount}</h3>
 
-              <p className="info-label">Total PIA's Registered</p>
+              <p className="info-label">Total Students</p>
 
               <Button type="primary" size="medium">
                 View
@@ -30,7 +86,7 @@ const Home = () => {
                 <i class="fa-solid fa-book-open-reader"></i>
               </span>
 
-              <h3 className="info-count">{"0"}</h3>
+              <h3 className="info-count">{batchCount}</h3>
 
               <p className="info-label">Total Batches Registered</p>
 
@@ -46,9 +102,9 @@ const Home = () => {
                 <i class="fa-solid fa-check"></i>
               </span>
 
-              <h3 className="info-count">{"0"}</h3>
+              <h3 className="info-count">{centerCount}</h3>
 
-              <p className="info-label">Total Batches Pending For Approval</p>
+              <p className="info-label">Total Centers</p>
 
               <Button type="primary" size="medium">
                 View

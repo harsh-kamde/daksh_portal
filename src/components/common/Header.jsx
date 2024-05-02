@@ -1,6 +1,8 @@
 import React from "react";
 import "../../stylesheets/Header.css";
-const dataCenter = JSON.parse(localStorage.getItem("center_data"));
+
+const dataCenter = JSON.parse(localStorage.getItem("center_data")) || {};
+
 const Header = () => {
   return (
     <>

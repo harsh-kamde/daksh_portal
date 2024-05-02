@@ -52,9 +52,9 @@ const MonthWiseAttendanceReport = () => {
       });
 
       if (response.ok) {
-        const responseData = await response.json(); // Parse JSON response
+        const {responseData, student} = await response.json(); // Parse JSON response
         // Store responseData in state or variable
-        console.log(responseData);
+        console.log(responseData+" "+student);
         // setData(responseData);
         setMonthlyAttendanceData(responseData);
         console.log("month wise data check: "+JSON.stringify(monthlyAttendanceData));

@@ -26,7 +26,8 @@ const MonthWiseAttendanceReport = () => {
     authorizationToken,
     monthlyAttendanceData,
     setMonthlyAttendanceData,
-    setBatchData
+    setBatchData,
+    setActualAttendanceData,
   } = useAuth();
 
   const handleChange = (value, name) => {
@@ -60,6 +61,7 @@ const MonthWiseAttendanceReport = () => {
         console.log("Batch Data : ", batchData);
         // setData(responseData);
         setMonthlyAttendanceData(allAttendanceData);
+        setActualAttendanceData(allAttendanceData);
 
         alert("monthly Successful")
         navigate("/student-reports/month-wise-attendance-report/report");

@@ -1,6 +1,5 @@
 import React from "react";
 import "../stylesheets/AttendanceReport.css";
-import AttendanceReportCard from "./AttendanceReportCard";
 import Header from "../components/common/Header";
 import { Button } from "antd";
 import { useAuth } from "../store/auth";
@@ -8,7 +7,6 @@ import { useAuth } from "../store/auth";
 const dataCenter = JSON.parse(localStorage.getItem("center_data"));
 
 const AttendanceReport = () => {
-
   const batch_details = localStorage.getItem("batch");
 
   const {
@@ -19,11 +17,13 @@ const AttendanceReport = () => {
     studentData,
     setStudentData,
     courseData,
-    setCourseData
+    setCourseData,
+    actualAttendanceData,
   } = useAuth();
 
   console.log("student ka data le lo : ", studentData);
   console.log("course ka data le lo : ", courseData);
+  console.log("My actual attendance data is : ", actualAttendanceData);
 
   return (
     <>
@@ -52,18 +52,76 @@ const AttendanceReport = () => {
           <p>
             {courseData.length > 0 ? courseData[0].course_name : "Loading..."}
           </p>
-          {courseData.length > 0 ? courseData[0].course_name : "Loading..."}
+          
           {/* <p>{batchData.length > 0 ? batchData.batch_name : "Loading..."}</p> */}
           {/* <p>Month-Year</p> */}
         </div>
       </div>
 
-      <AttendanceReportCard />
-      <AttendanceReportCard />
-      <AttendanceReportCard />
-      <AttendanceReportCard />
-      <AttendanceReportCard />
-      <AttendanceReportCard />
+      {actualAttendanceData.map((item) => {
+        return (
+          <>
+            <div className="report">
+              <div className="traineeDetail">
+                <h3>Trainee Name:</h3>
+                <h3>{item.student.student_name}</h3>
+              </div>
+
+              <div className="table-responsive">
+                <table className="table">
+                  <thead>
+                    <tr>
+                      <th scope="col" className="time">
+                        Time
+                      </th>
+                      {[...Array(31)].map((_, i) => (
+                        <th key={i + 1} scope="col" className="time">
+                          {i + 1}
+                        </th>
+                      ))}
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th scope="row" className="time">
+                        In
+                      </th>
+                      {item.attendance.map((item, index) => (
+                        <td
+                          key={index}
+                          style={{
+                            color: item.inTime ? "var(--textColor)" : "red",
+                          }}
+                          className="time"
+                        >
+                          {item.inTime ? item.inTime : "*"}
+                        </td>
+                      ))}
+                    </tr>
+
+                    <tr>
+                      <th scope="row" className="time">
+                        Out
+                      </th>
+                      {item.attendance.map((item, index) => (
+                        <td
+                          key={index}
+                          style={{
+                            color: item.outTime ? "var(--textColor)" : "red",
+                          }}
+                          className="time"
+                        >
+                          {item.outTime ? item.outTime : "*"}
+                        </td>
+                      ))}
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </>
+        );
+      })}
     </>
   );
 };

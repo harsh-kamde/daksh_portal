@@ -26,6 +26,7 @@ const MonthWiseAttendanceReport = () => {
     authorizationToken,
     monthlyAttendanceData,
     setMonthlyAttendanceData,
+    setBatchData
   } = useAuth();
 
   const handleChange = (value, name) => {

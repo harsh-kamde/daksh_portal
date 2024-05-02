@@ -4,7 +4,8 @@ import { NavLink } from "react-router-dom";
 import { useAuth } from "../../store/auth";
 import DashboardLayout from "../dashboard/DashboardLayout";
 import "../../stylesheets/Form.css";
-const URL = 'http://localhost:5009/api/v1/attendance/monthlyAttendance';
+import { API_URL } from "../../store/apiurl";
+const URL = `${API_URL}/api/v1/attendance/monthlyAttendance`;
 
 const { Option } = Select;
 

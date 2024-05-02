@@ -18,6 +18,7 @@ const AttendanceReportCard = () => {
       );
     }
   }, [monthlyAttendanceData]);
+  console.log(monthlyAttendanceData)
 
   return (
     <div className="report">
@@ -41,8 +42,8 @@ const AttendanceReportCard = () => {
           <tbody>
             <tr>
               <th scope="row">In</th>
-              {data &&
-                data.attendanceData.map((item, index) => (
+              {monthlyAttendanceData &&
+                monthlyAttendanceData.map((item, index) => (
                   <td
                     key={index}
                     style={{
@@ -56,8 +57,8 @@ const AttendanceReportCard = () => {
 
             <tr>
               <th scope="row">Out</th>
-              {data &&
-                data.attendanceData.map((item, index) => (
+              {monthlyAttendanceData &&
+                monthlyAttendanceData.map((item, index) => (
                   <td
                     key={index}
                     style={{

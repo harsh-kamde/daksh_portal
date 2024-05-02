@@ -53,14 +53,15 @@ const MonthWiseAttendanceReport = () => {
       });
 
       if (response.ok) {
-        const {responseData, batchData }= await response.json(); // Parse JSON response
+        const {attendanceData, courseData, batchData, studentData} = await response.json(); // Parse JSON response
         // Store responseData in state or variable
-        console.log(responseData);
-        console.log(batchData);
+        console.log("Actual Attendance Data : ", attendanceData);
+        console.log("Course Data : ", courseData);
+        console.log("Batch Data : ", batchData);
+        console.log("Student Data : ", studentData);
         // setData(responseData);
-        setMonthlyAttendanceData(responseData);
-        console.log("month wise data check: "+JSON.stringify(monthlyAttendanceData));
-        console.log("month wise data check: "+monthlyAttendanceData);
+        setMonthlyAttendanceData(attendanceData);
+
         alert("monthly Successful")
         navigate("/student-reports/month-wise-attendance-report/report");
 

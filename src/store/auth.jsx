@@ -7,10 +7,13 @@ export const AuthContext = createContext();
 export const AuthProvider = ({ children }) => {
   const [token, setToken] = useState(localStorage.getItem("token"));
   const [user, setUser] = useState("");
+
   const [monthlyAttendanceData, setMonthlyAttendanceData] = useState();
+
+  const [monthlyAttendance, setMonthlyAttendance] = useState();
+
   const [isLoading, setIsLoading] = useState(true);
   const authorizationToken = `Bearer ${token}`;
-
 
   // function to check the user Authentication or not
   const userAuthentication = async () => {
@@ -40,8 +43,6 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     userAuthentication();
   }, []);
-
-
 
   //function to stored the token in local storage
   const storeTokenInLS = (serverToken) => {

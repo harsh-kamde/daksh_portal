@@ -4,9 +4,8 @@ import Header from "./common/Header";
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from "../store/auth";
-
-
-const URL = 'http://localhost:5009/api/v1/auth/admin-login';
+import { API_URL } from "../store/apiurl";
+const URL = `${API_URL}/api/v1/auth/admin-login`;
 
 const Login = () => {
 
@@ -46,6 +45,8 @@ const Login = () => {
         toast.success("Login Successful");
         const data = await response.json();
         storeTokenInLS(data.token);
+        localStorage.setItem("center_data", JSON.stringify(data.center));
+        console.log("center_data"+JSON.stringify(data.center));
         navigate('/dashboard');
         setUser({ email: "", password: "" });
       } else {

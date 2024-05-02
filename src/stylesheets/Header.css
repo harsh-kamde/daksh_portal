@@ -21,6 +21,15 @@
     font-size: 1rem;
 }
 
+.navbar h3{
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+.navbar .center-name{
+  text-transform: capitalize;
+}
+
 .fixed-effect {
   box-shadow: 0 6px 18px 3px rgba(32, 31, 31, 0.3);
   background-color: white;

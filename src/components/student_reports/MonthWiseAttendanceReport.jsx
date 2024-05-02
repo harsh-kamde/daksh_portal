@@ -4,11 +4,14 @@ import { NavLink } from "react-router-dom";
 import { useAuth } from "../../store/auth";
 import DashboardLayout from "../dashboard/DashboardLayout";
 import "../../stylesheets/Form.css";
-const URL = 'http://localhost:5009/api/v1/attendance/monthlyAttendance';
+import { API_URL } from "../../store/apiurl";
+const URL = `${API_URL}/api/v1/attendance/monthlyAttendance`;
 
 const { Option } = Select;
 
 const MonthWiseAttendanceReport = () => {
+  const [data, setData] = useState();
+
   const [formData, setFormData] = useState({
     pia: "Select PIA",
     state: "Select State",
@@ -19,7 +22,11 @@ const MonthWiseAttendanceReport = () => {
     batchType: "Select Batch Type",
     month: "Select Month",
   });
-  const { authorizationToken } = useAuth();
+  const {
+    authorizationToken,
+    monthlyAttendanceData,
+    setMonthlyAttendanceData,
+  } = useAuth();
 
   const handleChange = (value, name) => {
     setFormData({ ...formData, [name]: value });
@@ -48,6 +55,10 @@ const MonthWiseAttendanceReport = () => {
         const responseData = await response.json(); // Parse JSON response
         // Store responseData in state or variable
         console.log(responseData);
+        // setData(responseData);
+        setMonthlyAttendanceData(responseData);
+        console.log("month wise data check: "+monthlyAttendanceData);
+        // console.log("month wise data check: "+monthlyAttendanceData);
         alert("monthly Successful")
 
       } else {

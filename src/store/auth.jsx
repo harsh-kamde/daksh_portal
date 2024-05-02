@@ -7,9 +7,13 @@ export const AuthContext = createContext();
 export const AuthProvider = ({ children }) => {
   const [token, setToken] = useState(localStorage.getItem("token"));
   const [user, setUser] = useState("");
+
+  const [monthlyAttendanceData, setMonthlyAttendanceData] = useState();
+
+  const [monthlyAttendance, setMonthlyAttendance] = useState();
+
   const [isLoading, setIsLoading] = useState(true);
   const authorizationToken = `Bearer ${token}`;
-
 
   // function to check the user Authentication or not
   const userAuthentication = async () => {
@@ -40,8 +44,6 @@ export const AuthProvider = ({ children }) => {
     userAuthentication();
   }, []);
 
-
-
   //function to stored the token in local storage
   const storeTokenInLS = (serverToken) => {
     setToken(serverToken);
@@ -60,14 +62,18 @@ export const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ 
-      isLoggedIn, 
-      storeTokenInLS, 
-      LogoutUser ,
-      user, 
-      authorizationToken, 
-      isLoading,
-      }}>
+    <AuthContext.Provider
+      value={{
+        isLoggedIn,
+        storeTokenInLS,
+        LogoutUser,
+        user,
+        monthlyAttendanceData,
+        setMonthlyAttendanceData,
+        authorizationToken,
+        isLoading,
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );

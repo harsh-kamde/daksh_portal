@@ -16,7 +16,7 @@ import {
 const items = [
   {
     label: "Dashboard",
-    key: "/",
+    key: "/dashboard",
     icon: <AppstoreOutlined />,
     className: "sidebar-tab",
     style: { padding: "24px 28px" },

@@ -355,13 +355,13 @@ const MonthWiseAttendanceReport = () => {
                   placeholder="Month"
                   value={formData.month}
                 >
-                  <Option value="December 2023">December 2023</Option>
-                  <Option value="January 2024">January 2024</Option>
-                  <Option value="February 2024">February 2024</Option>
-                  <Option value="March 2024">March 2024</Option>
-                  <Option value="April 2024">April 2024</Option>
-                  <Option value="May 2024">May 2024</Option>
-                  <Option value="June 2024">June 2024</Option>
+                  <Option value="December">December 2023</Option>
+                  <Option value="January">January 2024</Option>
+                  <Option value="February">February 2024</Option>
+                  <Option value="March">March 2024</Option>
+                  <Option value="April">April 2024</Option>
+                  <Option value="May">May 2024</Option>
+                  <Option value="June">June 2024</Option>
                 </Select>
               </div>
             </div>

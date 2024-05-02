@@ -7,9 +7,11 @@ const AttendanceReportCard = () => {
       authorizationToken,
       monthlyAttendanceData,
       setMonthlyAttendanceData,
+      batchData
     } = useAuth();
 
-    let data = JSON.stringify(monthlyAttendanceData);
+    // const data = monthlyAttendanceData ? JSON.parse(monthlyAttendanceData) : [];
+
     
   return (
     <div className="report">
@@ -18,8 +20,8 @@ const AttendanceReportCard = () => {
         <h3>Trainee Name</h3>
       </div>
 
-      {console.log("Ha bhai me hu: " + data)}
-      {console.log("My data: " + data)}
+      {console.log("Ha bhai me hu: " + JSON.stringify(monthlyAttendanceData))}
+      {/* {console.log("My data: " + data)} */}
 
       <div className="table-responsive">
         <table className="table">
@@ -62,72 +64,35 @@ const AttendanceReportCard = () => {
           <tbody>
             <tr>
               <th scope="row">In</th>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
+              {monthlyAttendanceData &&
+                monthlyAttendanceData.attendanceData.map((item, index) => {
+                  return (
+                    <>
+                      <td
+                        key={index}
+                        style={{
+                          color: item.inTime ? "var(--textColor)" : "red",
+                        }}
+                      >
+                        {item.inTime ? item.inTime : "*"}
+                      </td>
+                    </>
+                  );
+                })}
             </tr>
 
             <tr>
               <th scope="row">Out</th>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
+              {monthlyAttendanceData &&
+                monthlyAttendanceData.attendanceData.map((item, index) => {
+                  return (
+                    <>
+                      <td key={index} style={{ color: item.outTime ? "var(--textColor)" : "red"}}>
+                        {item.outTime ? item.outTime : "*"}
+                      </td>
+                    </>
+                  );
+                })}
             </tr>
           </tbody>
         </table>

@@ -10,6 +10,8 @@ export const AuthProvider = ({ children }) => {
 
   const [monthlyAttendanceData, setMonthlyAttendanceData] = useState();
 
+  const [batchData, setBatchData] = useState();
+
   const [monthlyAttendance, setMonthlyAttendance] = useState();
 
   const [isLoading, setIsLoading] = useState(true);
@@ -70,6 +72,8 @@ export const AuthProvider = ({ children }) => {
         user,
         monthlyAttendanceData,
         setMonthlyAttendanceData,
+        batchData,
+        setBatchData,
         authorizationToken,
         isLoading,
       }}

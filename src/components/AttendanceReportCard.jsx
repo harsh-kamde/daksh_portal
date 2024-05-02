@@ -2,19 +2,12 @@ import React, { useState, useEffect } from "react";
 import "../stylesheets/AttendanceReport.css";
 import { useAuth } from "../store/auth";
 
-
 const AttendanceReportCard = () => {
-  const { monthlyAttendanceData } = useAuth();
-
-  
+  const { monthlyAttendanceData, studentData, setStudentData } = useAuth();
   const [data, setData] = useState(() => {
     const savedData = localStorage.getItem("monthlyAttendanceData");
     return savedData ? JSON.parse(savedData) : null;
   });
-
-  
-
-  console.log("The data is : ", JSON.stringify(monthlyAttendanceData));
 
   useEffect(() => {
     if (monthlyAttendanceData) {
@@ -25,12 +18,13 @@ const AttendanceReportCard = () => {
       );
     }
   }, [monthlyAttendanceData]);
+  console.log(monthlyAttendanceData);
 
   return (
     <div className="report">
       <div className="traineeDetail">
         <h3>Trainee Name:</h3>
-        <h3>Trainee Name</h3>
+        <h3>{studentData.student_name}</h3>
       </div>
 
       <div className="table-responsive">
@@ -49,7 +43,7 @@ const AttendanceReportCard = () => {
             <tr>
               <th scope="row">In</th>
               {monthlyAttendanceData &&
-                monthlyAttendanceData.attendanceData.map((item, index) => (
+                monthlyAttendanceData.map((item, index) => (
                   <td
                     key={index}
                     style={{
@@ -64,7 +58,7 @@ const AttendanceReportCard = () => {
             <tr>
               <th scope="row">Out</th>
               {monthlyAttendanceData &&
-                monthlyAttendanceData.attendanceData.map((item, index) => (
+                monthlyAttendanceData.map((item, index) => (
                   <td
                     key={index}
                     style={{

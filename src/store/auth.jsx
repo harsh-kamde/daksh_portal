@@ -8,9 +8,12 @@ export const AuthProvider = ({ children }) => {
   const [token, setToken] = useState(localStorage.getItem("token"));
   const [user, setUser] = useState("");
 
+  const [courseData, setCourseData] = useState("");
+  const [studentData, setStudentData] = useState("");
+  const [batchData, setBatchData] = useState();
+
   const [monthlyAttendanceData, setMonthlyAttendanceData] = useState();
 
-  const [batchData, setBatchData] = useState();
 
   const [monthlyAttendance, setMonthlyAttendance] = useState();
 
@@ -76,6 +79,10 @@ export const AuthProvider = ({ children }) => {
         setBatchData,
         authorizationToken,
         isLoading,
+        studentData,
+        setStudentData,
+        courseData,
+        setCourseData
       }}
     >
       {children}

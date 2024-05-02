@@ -15,8 +15,15 @@ const AttendanceReport = () => {
     authorizationToken,
     monthlyAttendanceData,
     setMonthlyAttendanceData,
-    batchData
+    batchData,
+    studentData,
+    setStudentData,
+    courseData,
+    setCourseData
   } = useAuth();
+
+  console.log("student ka data le lo : ", studentData);
+  console.log("course ka data le lo : ", courseData);
 
   return (
     <>
@@ -42,13 +49,14 @@ const AttendanceReport = () => {
         </div>
 
         <div className="report-data">
-          <p>Course Name</p>
-          {console.log("I am ", JSON.stringify(batch_details))}
-          <p>Batch Id</p>
-          <p>Month-Year</p>
+          <p>
+            {courseData.length > 0 ? courseData[0].course_name : "Loading..."}
+          </p>
+          {courseData.length > 0 ? courseData[0].course_name : "Loading..."}
+          {/* <p>{batchData.length > 0 ? batchData.batch_name : "Loading..."}</p> */}
+          {/* <p>Month-Year</p> */}
         </div>
       </div>
-      
 
       <AttendanceReportCard />
       <AttendanceReportCard />

@@ -26,7 +26,11 @@ const MonthWiseAttendanceReport = () => {
     authorizationToken,
     monthlyAttendanceData,
     setMonthlyAttendanceData,
-    setBatchData
+    setBatchData,
+    studentData,
+    setStudentData,
+    courseData,
+    setCourseData,
   } = useAuth();
 
   const handleChange = (value, name) => {
@@ -53,16 +57,19 @@ const MonthWiseAttendanceReport = () => {
       });
 
       if (response.ok) {
-        const responseData = await response.json(); // Parse JSON response
+        const {attendanceData, courseData, batchData, studentData} = await response.json(); // Parse JSON response
         // Store responseData in state or variable
-        console.log("response"+responseData);
-        // setBatchData(batchData);
-        // console.log("batchData:"+batchData);
-        // localStorage.setItem("batch", batchData);
+        console.log("Actual Attendance Data : ", attendanceData);
+        console.log("Course Data : ", courseData);
+        console.log("Batch Data : ", batchData);
+        console.log("Student Data : ", studentData);
+
+        setCourseData(courseData);
+        setStudentData(studentData);
+        
         // setData(responseData);
-        setMonthlyAttendanceData(responseData);
-        console.log("month wise data check: "+JSON.stringify(monthlyAttendanceData));
-        console.log("month wise data check: "+monthlyAttendanceData);
+        setMonthlyAttendanceData(attendanceData);
+
         alert("monthly Successful")
         navigate("/student-reports/month-wise-attendance-report/report");
 

@@ -7,7 +7,8 @@ const Header = () => {
       <header id="header" className="fixed-top navbar">
         <h3>PM-DAKSH</h3>
         <h3 className="center-name">
-          {dataCenter.center_name}, {dataCenter.state}
+          {dataCenter.center_name && dataCenter.center_name},{" "}
+          {dataCenter.state && dataCenter.state}
         </h3>
       </header>
     </>

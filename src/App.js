@@ -2,6 +2,7 @@ import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import AttendanceReport from "./components/AttendanceReport";
 import "./App.css";
+import { AuthProvider } from "../src/store/auth";
 
 import Home from "./components/Home";
 
@@ -37,6 +38,7 @@ import ChangePassword from "./components/ChangePassword";
 
 const App = () => {
   return (
+    <AuthProvider>
     <Router>
       <Routes>
         <Route path="/" element={<Login />} />
@@ -90,6 +92,7 @@ const App = () => {
         <Route path="/password/change-password" element={<ChangePassword />} />
       </Routes>
     </Router>
+    </AuthProvider>
   );
 };
 

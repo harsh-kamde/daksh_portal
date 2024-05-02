@@ -3,18 +3,21 @@ import "../stylesheets/Form.css";
 import Header from "./common/Header";
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from "../store/auth";
 
 
 const URL = 'http://localhost:5009/api/v1/auth/admin-login';
 
 const Login = () => {
 
-  const navigate = useNavigate();
-
   const [user, setUser] = useState({
     email: "",
     password: "",
   });
+
+
+  const navigate = useNavigate();
+  const { storeTokenInLS } = useAuth();
 
   const [isLoading, setIsLoading] = useState(false);
   const [errors, setErrors] = useState({});
@@ -39,8 +42,10 @@ const Login = () => {
       });
 
       if (response.ok) {
-        alert("Login Successful")
+        // alert("Login Successful")
         toast.success("Login Successful");
+        const data = await response.json();
+        storeTokenInLS(data.token);
         navigate('/dashboard');
         setUser({ email: "", password: "" });
       } else {

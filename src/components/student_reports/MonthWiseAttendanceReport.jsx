@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import { Select } from "antd";
 import { NavLink } from "react-router-dom";
+import { useAuth } from "../../store/auth";
 import DashboardLayout from "../dashboard/DashboardLayout";
 import "../../stylesheets/Form.css";
+const URL = 'http://localhost:5009/api/v1/attendance/monthlyAttendance';
 
 const { Option } = Select;
 
@@ -17,17 +19,48 @@ const MonthWiseAttendanceReport = () => {
     batchType: "Select Batch Type",
     month: "Select Month",
   });
+  const { authorizationToken } = useAuth();
 
   const handleChange = (value, name) => {
     setFormData({ ...formData, [name]: value });
   };
 
-  const onSubmit = (event) => {
+  const onSubmit = async (event) => {
     event.preventDefault();
     const formattedData = {
       ...formData,
     };
-    console.log(JSON.stringify(formattedData, null, 2));
+
+    // e.preventDefault();
+    // setIsLoading(true);
+    // console.log(user);
+    try {
+      const response = await fetch(URL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: authorizationToken,
+        },
+        body: JSON.stringify(formattedData),
+      });
+
+      if (response.ok) {
+        const responseData = await response.json(); // Parse JSON response
+        // Store responseData in state or variable
+        console.log(responseData);
+        alert("monthly Successful")
+
+      } else {
+        alert("Invalid credentials")
+      }
+    } catch (error) {
+      alert("Server Error")
+
+    } finally {
+      // setIsLoading(false);
+    }
+
+    // console.log(JSON.stringify(formattedData, null, 2));
   };
 
   const districtOptions = () => {
@@ -54,15 +87,12 @@ const MonthWiseAttendanceReport = () => {
     }
   };
 
-
   const courseOptions = () => {
     if (formData.district === "Bhopal") {
       return (
         <>
           <Option value="Welder ( GTAW)">Welder ( GTAW)</Option>
-          <Option
-            value="Customer Care Executive"
-          >
+          <Option value="Customer Care Executive">
             Customer Care Executive
           </Option>
         </>
@@ -138,6 +168,76 @@ const MonthWiseAttendanceReport = () => {
     }
   };
 
+  const centerOptions = () => {
+    if (
+      (formData.district === "Bhopal" &&
+        formData.course === "Customer Care Executive") ||
+      (formData.district === "Bhopal" && formData.course === "Welder ( GTAW)")
+    ) {
+      return (
+        <>
+          <Option value="Mathura Devi Shiksha Prasar Evam Samaj Kalyan Samiti Bhopal">
+            Mathura Devi Shiksha Prasar Evam Samaj Kalyan Samiti Bhopal
+          </Option>
+        </>
+      );
+    } else {
+      return null;
+    }
+  };
+
+  const batchOptions = () => {
+    if (
+      formData.district === "Bhopal" &&
+      formData.course === "Welder ( GTAW)"
+    ) {
+      return (
+        <>
+          <Option value="003970">003970</Option>
+          <Option value="003922">003922</Option>
+          <Option value="003920">003920</Option>
+        </>
+      );
+    } else if (
+      formData.district === "Bhopal" &&
+      formData.course === "Customer Care Executive"
+    ) {
+      return (
+        <>
+          <Option value="003672">003672</Option>
+          <Option value="003921">003921</Option>
+          <Option value="003919">003919</Option>
+        </>
+      );
+    } else {
+      return null;
+    }
+  };
+
+  const batchTypeOptions = () => {
+    if (formData.batch === "003970" || formData.batch === "003672") {
+      return (
+        <>
+          <Option value="OBC">OBC</Option>
+        </>
+      );
+    } else if (formData.batch === "003922" || formData.batch === "003921") {
+      return (
+        <>
+          <Option value="SK">SK</Option>
+        </>
+      );
+    } else if (formData.batch === "003920" || formData.batch === "003919") {
+      return (
+        <>
+          <Option value="SC">SC</Option>
+        </>
+      );
+    } else {
+      return null;
+    }
+  };
+
   return (
     <DashboardLayout>
       <div className="profile-setting" style={{ marginBottom: "10rem" }}>
@@ -192,22 +292,6 @@ const MonthWiseAttendanceReport = () => {
 
             <div className="col-md-6">
               <div className="form-group mb-2 card-label">
-                <label className="label-style">Center</label>
-                <Select
-                  className="dropdown"
-                  onChange={(value) => handleChange(value, "center")}
-                  placeholder="Center"
-                  value={formData.center}
-                >
-                  <Option value="Center 1">Center 1</Option>
-                  <Option value="Center 2">Center 2</Option>
-                  <Option value="Center 3">Center 3</Option>
-                </Select>
-              </div>
-            </div>
-
-            <div className="col-md-6">
-              <div className="form-group mb-2 card-label">
                 <label className="label-style">Course</label>
                 <Select
                   className="dropdown"
@@ -222,6 +306,20 @@ const MonthWiseAttendanceReport = () => {
 
             <div className="col-md-6">
               <div className="form-group mb-2 card-label">
+                <label className="label-style">Center</label>
+                <Select
+                  className="dropdown"
+                  onChange={(value) => handleChange(value, "center")}
+                  placeholder="Center"
+                  value={formData.center}
+                >
+                  {centerOptions()}
+                </Select>
+              </div>
+            </div>
+
+            <div className="col-md-6">
+              <div className="form-group mb-2 card-label">
                 <label className="label-style">Batch</label>
                 <Select
                   className="dropdown"
@@ -229,9 +327,7 @@ const MonthWiseAttendanceReport = () => {
                   placeholder="Batch"
                   value={formData.batch}
                 >
-                  <Option value="Batch 1">Batch 1</Option>
-                  <Option value="Batch 2">Batch 2</Option>
-                  <Option value="Batch 3">Batch 3</Option>
+                  {batchOptions()}
                 </Select>
               </div>
             </div>
@@ -245,9 +341,7 @@ const MonthWiseAttendanceReport = () => {
                   placeholder="Batch Type"
                   value={formData.batchType}
                 >
-                  <Option value="Batch Type 1">Batch Type 1</Option>
-                  <Option value="Batch Type 2">Batch Type 2</Option>
-                  <Option value="Batch Type 3">Batch Type 3</Option>
+                  {batchTypeOptions()}
                 </Select>
               </div>
             </div>
@@ -261,33 +355,28 @@ const MonthWiseAttendanceReport = () => {
                   placeholder="Month"
                   value={formData.month}
                 >
-                  <Option value="January">January</Option>
-                  <Option value="February">February</Option>
-                  <Option value="March">March</Option>
-                  <Option value="April">April</Option>
-                  <Option value="May">May</Option>
-                  <Option value="June">June</Option>
-                  <Option value="July">July</Option>
-                  <Option value="August">August</Option>
-                  <Option value="September">September</Option>
-                  <Option value="October">October</Option>
-                  <Option value="November">November</Option>
-                  <Option value="December">December</Option>
+                  <Option value="December 2023">December 2023</Option>
+                  <Option value="January 2024">January 2024</Option>
+                  <Option value="February 2024">February 2024</Option>
+                  <Option value="March 2024">March 2024</Option>
+                  <Option value="April 2024">April 2024</Option>
+                  <Option value="May 2024">May 2024</Option>
+                  <Option value="June 2024">June 2024</Option>
                 </Select>
               </div>
             </div>
 
             <div className="text-center">
-              {/* <button type="submit" className="btn my-3">
+              <button type="submit" className="btn my-3">
                 {"Submit"}
-              </button> */}
+              </button>
 
-              <NavLink
+              {/* <NavLink
                 className="btn my-3"
                 to={"/student-reports/month-wise-attendance-report/report"}
               >
                 Show Report
-              </NavLink>
+              </NavLink> */}
             </div>
           </form>
         </div>

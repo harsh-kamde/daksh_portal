@@ -97,7 +97,7 @@ const MonthWiseAttendanceReport = () => {
     if (formData.district === "Bhopal") {
       return (
         <>
-          <Option value="Welder ( GTAW)">Welder ( GTAW)</Option>
+          <Option value="Welder (GTAW)">Welder (GTAW)</Option>
           <Option value="Customer Care Executive">
             Customer Care Executive
           </Option>
@@ -119,7 +119,7 @@ const MonthWiseAttendanceReport = () => {
             Customer Care Executive
           </Option>
           <Option value="Self Employed Tailor">Self Employed Tailor</Option>
-          <Option value="Welder ( GTAW)">Welder ( GTAW)</Option>
+          <Option value="Welder (GTAW)">Welder (GTAW)</Option>
         </>
       );
     } else if (formData.district === "Gwalior") {
@@ -248,7 +248,7 @@ const MonthWiseAttendanceReport = () => {
       );
     } else if (
       formData.district === "Morena" &&
-      formData.course === "Welder - (GTAW)"
+      formData.course === "Welder (GTAW)"
     ) {
       return (
         <>

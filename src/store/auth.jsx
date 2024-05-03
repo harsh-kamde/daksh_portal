@@ -5,6 +5,7 @@ export const AuthContext = createContext();
 
 // eslint-disable-next-line react/prop-types
 export const AuthProvider = ({ children }) => {
+
   const [token, setToken] = useState(localStorage.getItem("token"));
   const [user, setUser] = useState("");
 
@@ -14,9 +15,6 @@ export const AuthProvider = ({ children }) => {
   const [actualAttendanceData, setActualAttendanceData] = useState();
 
   const [monthlyAttendanceData, setMonthlyAttendanceData] = useState();
-
-
-  const [monthlyAttendance, setMonthlyAttendance] = useState();
 
   const [isLoading, setIsLoading] = useState(true);
   const authorizationToken = `Bearer ${token}`;

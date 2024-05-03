@@ -2,11 +2,19 @@ import React, {useState, useEffect} from "react";
 import DashboardLayout from "./dashboard/DashboardLayout";
 import "../stylesheets/Home.css";
 import { Button } from "antd";
+import { useNavigate } from "react-router-dom";
 
 import { API_URL } from "../store/apiurl";
 
 const Home = () => {
+  const navigate = useNavigate();
+
   const authorizationToken = localStorage.getItem("token");
+
+
+  if (!authorizationToken) {
+    navigate("/");
+  }
 
   
   const [studentCount, setStudentCount] = useState(0);
@@ -28,6 +36,7 @@ const Home = () => {
         },
       });
       const studentData = await studentResponse.json();
+      console.log("Student Data: ", studentData);
       
       setStudentCount(studentData.length);
 
@@ -40,6 +49,8 @@ const Home = () => {
       });
       const batchData = await batchResponse.json();
       console.log("Batch Data is : ", batchData);
+      console.log("Batch Data: ", batchData);
+
       setBatchCount(batchData.length);
 
       // Fetch center count
@@ -50,6 +61,8 @@ const Home = () => {
         },
       });
       const centerData = await centerResponse.json();
+      console.log("Center Data: ", centerData);
+
       setCenterCount(centerData.length);
     } catch (error) {
       console.error("Error fetching counts:", error);

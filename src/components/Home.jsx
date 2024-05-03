@@ -36,9 +36,17 @@ const Home = () => {
         },
       });
       const studentData = await studentResponse.json();
+
+      const uniqueStudentNames = studentData.reduce((acc, curr) => {
+        if (!acc.includes(curr.user_id)) {
+          acc.push(curr.user_id);
+        }
+        return acc;
+      }, []);
+
       console.log("Student Data: ", studentData);
       
-      setStudentCount(studentData.length);
+      setStudentCount(uniqueStudentNames.length);
 
       // Fetch batch count
       const batchResponse = await fetch(`${API_URL}/api/v1/batch/batches`, {
@@ -51,7 +59,14 @@ const Home = () => {
       console.log("Batch Data is : ", batchData);
       console.log("Batch Data: ", batchData);
 
-      setBatchCount(batchData.length);
+      const uniqueBatchNames = batchData.reduce((acc, curr) => {
+        if (!acc.includes(curr.batch_name)) {
+          acc.push(curr.batch_name);
+        }
+        return acc;
+      }, []);
+
+      setBatchCount(uniqueBatchNames.length);
 
       // Fetch center count
       const centerResponse = await fetch(`${API_URL}/api/v1/center/center`, {
@@ -61,9 +76,17 @@ const Home = () => {
         },
       });
       const centerData = await centerResponse.json();
+
+      const uniqueCenterNames = centerData.reduce((acc, curr) => {
+        if (!acc.includes(curr.center_name)) {
+          acc.push(curr.center_name);
+        }
+        return acc;
+      }, []);
+
       console.log("Center Data: ", centerData);
 
-      setCenterCount(centerData.length);
+      setCenterCount(uniqueCenterNames.length);
     } catch (error) {
       console.error("Error fetching counts:", error);
     }

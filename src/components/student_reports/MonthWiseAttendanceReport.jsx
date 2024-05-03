@@ -10,7 +10,6 @@ const URL = `${API_URL}/api/v1/attendance/monthlyAttendance`;
 const { Option } = Select;
 
 const MonthWiseAttendanceReport = () => {
-  const [data, setData] = useState();
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     pia: "Select PIA",
@@ -24,9 +23,7 @@ const MonthWiseAttendanceReport = () => {
   });
   const {
     authorizationToken,
-    monthlyAttendanceData,
     setMonthlyAttendanceData,
-    setBatchData,
     setActualAttendanceData,
   } = useAuth();
 
@@ -40,9 +37,6 @@ const MonthWiseAttendanceReport = () => {
       ...formData,
     };
 
-    // e.preventDefault();
-    // setIsLoading(true);
-    // console.log(user);
     try {
       const response = await fetch(URL, {
         method: "POST",
@@ -54,29 +48,25 @@ const MonthWiseAttendanceReport = () => {
       });
 
       if (response.ok) {
-        const {allAttendanceData, courseData, batchData} = await response.json(); // Parse JSON response
-        // Store responseData in state or variable
+        const { allAttendanceData, courseData, batchData } =
+          await response.json();
         console.log("Actual Attendance Data : ", allAttendanceData);
         console.log("Course Data : ", courseData);
         console.log("Batch Data : ", batchData);
-        // setData(responseData);
+
         setMonthlyAttendanceData(allAttendanceData);
         setActualAttendanceData(allAttendanceData);
 
-        alert("monthly Successful")
+        alert("monthly Successful");
         navigate("/student-reports/month-wise-attendance-report/report");
-
       } else {
-        alert("Invalid credentials")
+        alert("Invalid credentials");
       }
     } catch (error) {
-      alert("Server Error")
-
+      alert("Server Error");
     } finally {
       // setIsLoading(false);
     }
-
-    // console.log(JSON.stringify(formattedData, null, 2));
   };
 
   const districtOptions = () => {
@@ -107,7 +97,7 @@ const MonthWiseAttendanceReport = () => {
     if (formData.district === "Bhopal") {
       return (
         <>
-          <Option value="Welder ( GTAW)">Welder ( GTAW)</Option>
+          <Option value="Welder (GTAW)">Welder (GTAW)</Option>
           <Option value="Customer Care Executive">
             Customer Care Executive
           </Option>
@@ -129,7 +119,7 @@ const MonthWiseAttendanceReport = () => {
             Customer Care Executive
           </Option>
           <Option value="Self Employed Tailor">Self Employed Tailor</Option>
-          <Option value="Welder ( GTAW)">Welder ( GTAW)</Option>
+          <Option value="Welder (GTAW)">Welder (GTAW)</Option>
         </>
       );
     } else if (formData.district === "Gwalior") {
@@ -185,28 +175,15 @@ const MonthWiseAttendanceReport = () => {
   };
 
   const centerOptions = () => {
-    if (
-      (formData.district === "Bhopal" &&
-        formData.course === "Customer Care Executive") ||
-      (formData.district === "Bhopal" && formData.course === "Welder ( GTAW)")
-    ) {
-      return (
-        <>
-          <Option value="Mathura Devi Shiksha Prasar Evam Samaj Kalyan Samiti Bhopal">
-            Mathura Devi Shiksha Prasar Evam Samaj Kalyan Samiti Bhopal
-          </Option>
-        </>
-      );
-    } else {
-      return null;
-    }
+    return (
+      <Option value="Mathura Devi Shiksha Prasar Evam Samaj Kalyan Samiti Bhopal">
+        Mathura Devi Shiksha Prasar Evam Samaj Kalyan Samiti Bhopal
+      </Option>
+    );
   };
 
   const batchOptions = () => {
-    if (
-      formData.district === "Bhopal" &&
-      formData.course === "Welder ( GTAW)"
-    ) {
+    if (formData.district === "Bhopal" && formData.course === "Welder (GTAW)") {
       return (
         <>
           <Option value="003970">003970</Option>
@@ -225,25 +202,216 @@ const MonthWiseAttendanceReport = () => {
           <Option value="003919">003919</Option>
         </>
       );
+    } else if (
+      formData.district === "Khandwa" &&
+      formData.course === "Jute Products Stitching Operator"
+    ) {
+      return (
+        <>
+          <Option value="005068">005068</Option>
+          <Option value="005069">005069</Option>
+          <Option value="005070">005070</Option>
+        </>
+      );
+    } else if (
+      formData.district === "Khandwa" &&
+      formData.course === "Self Employed Tailor"
+    ) {
+      return (
+        <>
+          <Option value="005065">005065</Option>
+          <Option value="005066">005066</Option>
+          <Option value="005067">005067</Option>
+        </>
+      );
+    } else if (
+      formData.district === "Moradabad" &&
+      formData.course === "Customer Care Executive"
+    ) {
+      return (
+        <>
+          <Option value="005139">005139</Option>
+          <Option value="005140">005140</Option>
+          <Option value="005142">005142</Option>
+        </>
+      );
+    } else if (
+      formData.district === "Moradabad" &&
+      formData.course === "Account Executive"
+    ) {
+      return (
+        <>
+          <Option value="005137">005137</Option>
+          <Option value="005138">005138</Option>
+          <Option value="005141">005141</Option>
+        </>
+      );
+    } else if (
+      formData.district === "Morena" &&
+      formData.course === "Welder (GTAW)"
+    ) {
+      return (
+        <>
+          <Option value="004229">004229</Option>
+          <Option value="004230">004230</Option>
+          <Option value="004231">004231</Option>
+        </>
+      );
+    } else if (
+      formData.district === "Morena" &&
+      formData.course === "Self Employed Tailor"
+    ) {
+      return (
+        <>
+          <Option value="004226">004226</Option>
+          <Option value="004227">004227</Option>
+          <Option value="004228">004228</Option>
+        </>
+      );
+    } else if (
+      formData.district === "Morena" &&
+      formData.course === "Customer Care Executive"
+    ) {
+      return (
+        <>
+          <Option value="004216">004216</Option>
+          <Option value="004224">004224</Option>
+          <Option value="004225">004225</Option>
+        </>
+      );
+    } else if (
+      formData.district === "Bhind" &&
+      formData.course === "Self Employed Tailor"
+    ) {
+      return (
+        <>
+          <Option value="004547">004547</Option>
+          <Option value="004553">004553</Option>
+          <Option value="004694">004694</Option>
+        </>
+      );
+    } else if (
+      formData.district === "Bhind" &&
+      formData.course === "Customer Care Executive"
+    ) {
+      return (
+        <>
+          <Option value="004561">004561</Option>
+          <Option value="004565">004565</Option>
+          <Option value="004680">004680</Option>
+        </>
+      );
+    } else if (
+      formData.district === "Farrukhabad" &&
+      formData.course === "Customer Care Executive"
+    ) {
+      return (
+        <>
+          <Option value="004212">004212</Option>
+          <Option value="004213">004213</Option>
+          <Option value="004214">004214</Option>
+        </>
+      );
+    } else if (
+      formData.district === "Farrukhabad" &&
+      formData.course === "Self Employed Tailor"
+    ) {
+      return (
+        <>
+          <Option value="004209">004209</Option>
+          <Option value="004210">004210</Option>
+          <Option value="004211">004211</Option>
+        </>
+      );
+    } else if (
+      formData.district === "Gwalior" &&
+      formData.course === "Jute Products Stitching Operator"
+    ) {
+      return (
+        <>
+          <Option value="004257">004257</Option>
+          <Option value="004258">004258</Option>
+          <Option value="004260">004260</Option>
+        </>
+      );
+    } else if (
+      formData.district === "Gwalior" &&
+      formData.course === "Customer Care Executive"
+    ) {
+      return (
+        <>
+          <Option value="004251">004251</Option>
+          <Option value="004252">004252</Option>
+          <Option value="004253">004253</Option>
+        </>
+      );
     } else {
       return null;
     }
   };
 
   const batchTypeOptions = () => {
-    if (formData.batch === "003970" || formData.batch === "003672") {
+    if (
+      formData.batch === "003970" ||
+      formData.batch === "003672" ||
+      formData.batch === "005068" ||
+      formData.batch === "005065" ||
+      formData.batch === "005140" ||
+      formData.batch === "005137" ||
+      formData.batch === "004229" ||
+      formData.batch === "004226" ||
+      formData.batch === "004216" ||
+      formData.batch === "004561" ||
+      formData.batch === "004553" ||
+      formData.batch === "004212" ||
+      formData.batch === "004209" ||
+      formData.batch === "004258" ||
+      formData.batch === "004252"
+    ) {
       return (
         <>
           <Option value="OBC">OBC</Option>
         </>
       );
-    } else if (formData.batch === "003922" || formData.batch === "003921") {
+    } else if (
+      formData.batch === "003922" ||
+      formData.batch === "003921" ||
+      formData.batch === "005070" ||
+      formData.batch === "005067" ||
+      formData.batch === "005142" ||
+      formData.batch === "005141" ||
+      formData.batch === "004231" ||
+      formData.batch === "004227" ||
+      formData.batch === "004225" ||
+      formData.batch === "004694" ||
+      formData.batch === "004680" ||
+      formData.batch === "004213" ||
+      formData.batch === "004210" ||
+      formData.batch === "004257" ||
+      formData.batch === "004251"
+    ) {
       return (
         <>
           <Option value="SK">SK</Option>
         </>
       );
-    } else if (formData.batch === "003920" || formData.batch === "003919") {
+    } else if (
+      formData.batch === "003920" ||
+      formData.batch === "003919" ||
+      formData.batch === "005069" ||
+      formData.batch === "005066" ||
+      formData.batch === "005139" ||
+      formData.batch === "005138" ||
+      formData.batch === "004230" ||
+      formData.batch === "004228" ||
+      formData.batch === "004224" ||
+      formData.batch === "004565" ||
+      formData.batch === "004547" ||
+      formData.batch === "004214" ||
+      formData.batch === "004211" ||
+      formData.batch === "004260" ||
+      formData.batch === "004253"
+    ) {
       return (
         <>
           <Option value="SC">SC</Option>
@@ -386,13 +554,6 @@ const MonthWiseAttendanceReport = () => {
               <button type="submit" className="btn my-3">
                 {"Submit"}
               </button>
-
-              {/* <NavLink
-                className="btn my-3"
-                to={"/student-reports/month-wise-attendance-report/report"}
-              >
-                Show Report
-              </NavLink> */}
             </div>
           </form>
         </div>

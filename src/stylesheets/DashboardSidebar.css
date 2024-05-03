@@ -48,6 +48,16 @@
   border-bottom: 0;
 }
 
+.dashboard-menu .logout-btn{
+  border: none;
+  width: 100%;
+  text-align: left;
+}
+
+.dashboard-menu .logout-btn:hover{
+  color: black !important;
+}
+
 @media (max-width: 768px) {
   .dashboard-drawer-btn {
     position: fixed;

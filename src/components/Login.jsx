@@ -7,7 +7,17 @@ import { useAuth } from "../store/auth";
 import { API_URL } from "../store/apiurl";
 const URL = `${API_URL}/api/v1/auth/admin-login`;
 
+
 const Login = () => {
+  const navigate = useNavigate();
+
+  const token = localStorage.getItem("token");
+
+  if(token){
+    navigate("/dashboard");
+  }
+
+  
 
   const [user, setUser] = useState({
     email: "",
@@ -15,7 +25,6 @@ const Login = () => {
   });
 
 
-  const navigate = useNavigate();
   const { storeTokenInLS } = useAuth();
 
   const [isLoading, setIsLoading] = useState(false);

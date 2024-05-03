@@ -64,7 +64,7 @@ const AttendanceReport = () => {
             <div className="report">
               <div className="traineeDetail">
                 <h3>Trainee Name:</h3>
-                <h3>{item.student.student_name}</h3>
+                <h3>{item.student.length > 0 && item.student[0].student_name}</h3>
               </div>
 
               <div className="table-responsive">

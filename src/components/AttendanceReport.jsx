@@ -58,7 +58,7 @@ const AttendanceReport = () => {
         </div>
       </div>
 
-      {actualAttendanceData.map((item) => {
+      {actualAttendanceData && actualAttendanceData.map((item) => {
         return (
           <>
             <div className="report">

@@ -57,10 +57,10 @@ const MonthWiseAttendanceReport = () => {
         setMonthlyAttendanceData(allAttendanceData);
         setActualAttendanceData(allAttendanceData);
 
-        alert("monthly Successful");
+        alert("Monthly Record Find Successful");
         navigate("/student-reports/month-wise-attendance-report/report");
       } else {
-        alert("Invalid credentials");
+        alert("Data not found :)");
       }
     } catch (error) {
       alert("Server Error");

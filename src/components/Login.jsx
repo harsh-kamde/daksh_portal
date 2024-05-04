@@ -41,7 +41,7 @@ const Login = () => {
     setIsLoading(true);
     // console.log(user);
     try {
-      const response = await fetch('http://localhost:5009/api/v1/auth/admin-login', {
+      const response = await fetch(URL, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

@@ -405,8 +405,19 @@ const MarkAttendance = () => {
   };
 
   const handleSubmit = async () => {
-    
-    console.log("Attendance Data:", attendanceData);
+    console.log("Before Data:", attendanceData);
+    console.log(studentData);
+    studentData.forEach((student) => {
+      const studentId = student._id + "___" + student.user_id;
+      if (!(studentId in attendanceData)) {
+        console.log("Hi i'm in the empty data logic");
+        setAttendanceData((prevData) => ({
+          ...prevData,
+          [studentId]: { inTime: "", outTime: "" }, // Set default values as empty string
+        }));
+      }
+    });
+    console.log("after empty values: ",attendanceData);
     const formattedData = {
       date: selectedDate,
       attendance_data: attendanceData,
@@ -415,10 +426,6 @@ const MarkAttendance = () => {
       outLat: outLat,
       outLong: outLong,
     };
-
-    
-
-    // console.log(formattedData)
 
     try {
       const response = await fetch(attendance_url, {

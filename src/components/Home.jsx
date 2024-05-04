@@ -110,9 +110,9 @@ const Home = () => {
 
               <p className="info-label">Total Students</p>
 
-              <Button type="primary" size="medium">
+              {/* <Button type="primary" size="medium">
                 View
-              </Button>
+              </Button> */}
             </div>
           </div>
 
@@ -126,9 +126,9 @@ const Home = () => {
 
               <p className="info-label">Total Batches Registered</p>
 
-              <Button type="primary" size="medium">
+              {/* <Button type="primary" size="medium">
                 View
-              </Button>
+              </Button> */}
             </div>
           </div>
 
@@ -142,9 +142,9 @@ const Home = () => {
 
               <p className="info-label">Total Centers</p>
 
-              <Button type="primary" size="medium">
+              {/* <Button type="primary" size="medium">
                 View
-              </Button>
+              </Button> */}
             </div>
           </div>
         </div>

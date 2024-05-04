@@ -9,7 +9,7 @@ const FacultyList = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const studentResponse = await fetch(
+        const facultyResponse = await fetch(
           `${API_URL}/api/v1/faculty/faculty`,
           {
             method: "GET",
@@ -18,19 +18,19 @@ const FacultyList = () => {
             },
           }
         );
-        const studentData = await studentResponse.json();
+        const facultyData = await facultyResponse.json();
 
         const uniqueId = [];
-        const uniqueData = studentData.reduce((acc, curr) => {
-          if (!uniqueId.includes(curr.user_id)) {
-            uniqueId.push(curr.user_id);
+        const uniqueData = facultyData.reduce((acc, curr) => {
+          if (!uniqueId.includes(curr._id)) {
+            uniqueId.push(curr._id);
             acc.push(curr);
           }
           return acc;
         }, []);
 
         setUniqueFacultyData(uniqueData);
-        console.log("Unique student data: ", uniqueData);
+        console.log("Unique faculty data: ", uniqueData);
       } catch (error) {
         console.error("Error fetching data: ", error);
       }
@@ -46,13 +46,10 @@ const FacultyList = () => {
           <thead>
             <tr>
               <th scope="col" className="time">
-                Student Name
+                Faculty Name
               </th>
               <th scope="col" className="time">
-                Student Id
-              </th>
-              <th scope="col" className="time">
-                Category
+                Age
               </th>
               <th scope="col" className="time">
                 City
@@ -65,9 +62,8 @@ const FacultyList = () => {
           <tbody>
             {uniqueFacultyData.map((item, index) => (
               <tr key={index}>
-                <td>{item.student_name}</td>
-                <td>{item.user_id}</td>
-                <td>{item.category}</td>
+                <td>{item.faculty_name}</td>
+                <td>{item.age}</td>
                 <td>{item.city}</td>
                 <td>{item.address}</td>
               </tr>

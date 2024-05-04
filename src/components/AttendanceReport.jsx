@@ -7,22 +7,14 @@ import { useAuth } from "../store/auth";
 const dataCenter = JSON.parse(localStorage.getItem("center_data"));
 
 const AttendanceReport = () => {
-  const batch_details = localStorage.getItem("batch");
+  // const batch_details = localStorage.getItem("batch");
 
-  const {
-    authorizationToken,
-    monthlyAttendanceData,
-    setMonthlyAttendanceData,
-    batchData,
-    studentData,
-    setStudentData,
-    courseData,
-    setCourseData,
-    actualAttendanceData,
-  } = useAuth();
+  const { studentData, courseData, batchData, actualAttendanceData } =
+    useAuth();
 
   console.log("student ka data le lo : ", studentData);
   console.log("course ka data le lo : ", courseData);
+  console.log("batch ka data le lo : ", batchData);
   console.log("My actual attendance data is : ", actualAttendanceData);
 
   return (
@@ -50,78 +42,86 @@ const AttendanceReport = () => {
 
         <div className="report-data">
           <p>
-            {courseData.length > 0 ? courseData[0].course_name : "Loading..."}
+            {courseData && courseData.length > 0
+              ? courseData[0].course_name
+              : "Loading..."}
           </p>
-          
-          {/* <p>{batchData.length > 0 ? batchData.batch_name : "Loading..."}</p> */}
-          {/* <p>Month-Year</p> */}
+
+          {batchData && batchData.length > 0 ? (
+            <p>{batchData[0].batch_name}</p>
+          ) : (
+            <p>Loading...</p>
+          )}
         </div>
       </div>
 
-      {actualAttendanceData && actualAttendanceData.map((item) => {
-        return (
-          <>
-            <div className="report">
-              <div className="traineeDetail">
-                <h3>Trainee Name:</h3>
-                <h3>{item.student.length > 0 && item.student[0].student_name}</h3>
-              </div>
+      {actualAttendanceData &&
+        actualAttendanceData.map((item) => {
+          return (
+            <>
+              <div className="report">
+                <div className="traineeDetail">
+                  <h3>Trainee Name:</h3>
+                  <h3>
+                    {item.student.length > 0 && item.student[0].student_name}
+                  </h3>
+                </div>
 
-              <div className="table-responsive">
-                <table className="table">
-                  <thead>
-                    <tr>
-                      <th scope="col" className="time">
-                        Time
-                      </th>
-                      {[...Array(31)].map((_, i) => (
-                        <th key={i + 1} scope="col" className="time">
-                          {i + 1}
+                <div className="table-responsive">
+                  <table className="table">
+                    <thead>
+                      <tr>
+                        <th scope="col" className="time">
+                          Time
                         </th>
-                      ))}
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <th scope="row" className="time">
-                        In
-                      </th>
-                      {item.attendance.map((item, index) => (
-                        <td
-                          key={index}
-                          style={{
-                            color: item.inTime ? "var(--textColor)" : "red",
-                          }}
-                          className="time"
-                        >
-                          {item.inTime ? item.inTime : "*"}
-                        </td>
-                      ))}
-                    </tr>
+                        {[...Array(31)].map((_, i) => (
+                          <th key={i + 1} scope="col" className="time">
+                            {i + 1}
+                          </th>
+                        ))}
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <th scope="row" className="time">
+                          In
+                        </th>
+                        {item.attendance.map((item, index) => (
+                          <td
+                            key={index}
+                            style={{
+                              color: item.inTime ? "var(--textColor)" : "red",
+                            }}
+                            className="time"
+                          >
+                            {item.inTime ? item.inTime : "*"}
+                          </td>
+                        ))}
+                      </tr>
 
-                    <tr>
-                      <th scope="row" className="time">
-                        Out
-                      </th>
-                      {item.attendance.map((item, index) => (
-                        <td
-                          key={index}
-                          style={{
-                            color: item.outTime ? "var(--textColor)" : "red",
-                          }}
-                          className="time"
-                        >
-                          {item.outTime ? item.outTime : "*"}
-                        </td>
-                      ))}
-                    </tr>
-                  </tbody>
-                </table>
+                      <tr>
+                        <th scope="row" className="time">
+                          Out
+                        </th>
+                        {item.attendance.map((item, index) => (
+                          <td
+                            key={index}
+                            style={{
+                              color: item.outTime ? "var(--textColor)" : "red",
+                            }}
+                            className="time"
+                          >
+                            {item.outTime ? item.outTime : "*"}
+                          </td>
+                        ))}
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
               </div>
-            </div>
-          </>
-        );
-      })}
+            </>
+          );
+        })}
     </>
   );
 };

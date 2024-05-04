@@ -34,64 +34,74 @@ import MonthWiseAttendanceReport from "./components/student_reports/MonthWiseAtt
 // faculty reports
 import EmployeeAttendanceReport from "./components/faculty_reports/EmployeeAttendanceReport";
 
+import MarkAttendance from "./components/student_reports/MarkAttendance";
+
 import ChangePassword from "./components/ChangePassword";
 
 const App = () => {
   return (
     <AuthProvider>
-    <Router>
-      <Routes>
-        <Route path="/" element={<Login />} />
-        <Route path="/dashboard" element={<Home />} />
+      <Router>
+        <Routes>
+          <Route path="/" element={<Login />} />
+          <Route path="/dashboard" element={<Home />} />
 
-        {/* master */}
-        <Route path="/masters/device-master" element={<DeviceMaster />} />
-        <Route path="/masters/center-master" element={<CenterMaster />} />
-        <Route path="/masters/course-map" element={<CourseMap />} />
-        <Route path="/masters/batch-master" element={<BatchMaster />} />
-        <Route path="/masters/student-master" element={<StudentMaster />} />
-        <Route path="/masters/faculty-master" element={<FacultyMaster />} />
-        <Route path="/masters/faculty-map" element={<FacultyMap />} />
+          {/* master */}
+          <Route path="/masters/device-master" element={<DeviceMaster />} />
+          <Route path="/masters/center-master" element={<CenterMaster />} />
+          <Route path="/masters/course-map" element={<CourseMap />} />
+          <Route path="/masters/batch-master" element={<BatchMaster />} />
+          <Route path="/masters/student-master" element={<StudentMaster />} />
+          <Route path="/masters/faculty-master" element={<FacultyMaster />} />
+          <Route path="/masters/faculty-map" element={<FacultyMap />} />
 
-        {/* view */}
-        <Route path="/view/device-list" element={<DeviceList />} />
-        <Route path="/view/center-list" element={<CenterList />} />
-        <Route path="/view/course-list" element={<CourseList />} />
-        <Route path="/view/batch-list" element={<BatchList />} />
-        <Route path="/view/student-list" element={<StudentList />} />
-        <Route path="/view/faculty-list" element={<FacultyList />} />
+          {/* view */}
+          <Route path="/view/device-list" element={<DeviceList />} />
+          <Route path="/view/center-list" element={<CenterList />} />
+          <Route path="/view/course-list" element={<CourseList />} />
+          <Route path="/view/batch-list" element={<BatchList />} />
+          <Route path="/view/student-list" element={<StudentList />} />
+          <Route path="/view/faculty-list" element={<FacultyList />} />
 
-        {/* student reports */}
-        <Route
-          path="/student-reports/daily-attendance-report"
-          element={<DailyAttendanceReport />}
-        />
-        <Route
-          path="/student-reports/student-progress"
-          element={<StudentProgress />}
-        />
-        <Route
-          path="/student-reports/batch-wise-attendance-report"
-          element={<BatchWiseAttendanceReport />}
-        />
-        <Route
-          path="/student-reports/month-wise-attendance-report"
-          element={<MonthWiseAttendanceReport />}
-        />
-        <Route
-          path="/student-reports/month-wise-attendance-report/report"
-          element={<AttendanceReport />}
-        />
+          {/* student reports */}
+          <Route
+            path="/student-reports/daily-attendance-report"
+            element={<DailyAttendanceReport />}
+          />
+          <Route
+            path="/student-reports/student-progress"
+            element={<StudentProgress />}
+          />
+          <Route
+            path="/student-reports/batch-wise-attendance-report"
+            element={<BatchWiseAttendanceReport />}
+          />
+          <Route
+            path="/student-reports/month-wise-attendance-report"
+            element={<MonthWiseAttendanceReport />}
+          />
+          <Route
+            path="/student-reports/month-wise-attendance-report/report"
+            element={<AttendanceReport />}
+          />
 
-        {/* faculty reports */}
-        <Route
-          path="/faculty-reports/employee-attendance-report"
-          element={<EmployeeAttendanceReport />}
-        />
+          {/* faculty reports */}
+          <Route
+            path="/faculty-reports/employee-attendance-report"
+            element={<EmployeeAttendanceReport />}
+          />
 
-        <Route path="/password/change-password" element={<ChangePassword />} />
-      </Routes>
-    </Router>
+          <Route
+            path="/attendance/mark-attendance"
+            element={<MarkAttendance />}
+          />
+
+          <Route
+            path="/password/change-password"
+            element={<ChangePassword />}
+          />
+        </Routes>
+      </Router>
     </AuthProvider>
   );
 };

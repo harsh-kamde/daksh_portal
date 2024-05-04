@@ -25,6 +25,8 @@ const MonthWiseAttendanceReport = () => {
     authorizationToken,
     setMonthlyAttendanceData,
     setActualAttendanceData,
+    setCourseData,
+    setBatchData,
   } = useAuth();
 
   const handleChange = (value, name) => {
@@ -54,6 +56,8 @@ const MonthWiseAttendanceReport = () => {
         console.log("Course Data : ", courseData);
         console.log("Batch Data : ", batchData);
 
+        setCourseData(courseData);
+        setBatchData(batchData);
         setMonthlyAttendanceData(allAttendanceData);
         setActualAttendanceData(allAttendanceData);
 
@@ -345,6 +349,28 @@ const MonthWiseAttendanceReport = () => {
           <Option value="004253">004253</Option>
         </>
       );
+    } else if (
+      formData.district === "Raisen" &&
+      formData.course === "Customer Care Executive"
+    ) {
+      return (
+        <>
+          <Option value="004263">004263</Option>
+          <Option value="003949">003949</Option>
+          <Option value="003930">003930</Option>
+        </>
+      );
+    } else if (
+      formData.district === "Raisen" &&
+      formData.course === "Self Employed Tailor"
+    ) {
+      return (
+        <>
+          <Option value="004262">004262</Option>
+          <Option value="003948">003948</Option>
+          <Option value="003929">003929</Option>
+        </>
+      );
     } else {
       return null;
     }
@@ -366,7 +392,9 @@ const MonthWiseAttendanceReport = () => {
       formData.batch === "004212" ||
       formData.batch === "004209" ||
       formData.batch === "004258" ||
-      formData.batch === "004252"
+      formData.batch === "004252" ||
+      formData.batch === "003930" ||
+      formData.batch === "003929"
     ) {
       return (
         <>
@@ -388,7 +416,9 @@ const MonthWiseAttendanceReport = () => {
       formData.batch === "004213" ||
       formData.batch === "004210" ||
       formData.batch === "004257" ||
-      formData.batch === "004251"
+      formData.batch === "004251" ||
+      formData.batch === "004263" ||
+      formData.batch === "004262"
     ) {
       return (
         <>
@@ -410,7 +440,9 @@ const MonthWiseAttendanceReport = () => {
       formData.batch === "004214" ||
       formData.batch === "004211" ||
       formData.batch === "004260" ||
-      formData.batch === "004253"
+      formData.batch === "004253" ||
+      formData.batch === "003949" ||
+      formData.batch === "003948"
     ) {
       return (
         <>

@@ -1,1 +1,1 @@
-export const API_URL="http://localhost:5009";
+export const API_URL="https://daksh-backend-p2dp7.ondigitalocean.app";

@@ -512,48 +512,53 @@ const MarkAttendance = () => {
           </div>
         </div>
         <div className="attendance-mark">
-          <table>
-            <thead>
-              <tr>
-                <th>Student Name</th>
-                <th>In Time</th>
-                <th>Out Time</th>
-              </tr>
-            </thead>
-            <tbody>
-              {studentData &&
-                studentData.map((student, index) => (
-                  <tr key={index}>
-                    <td>{student.student_name}</td>
-                    <td>
-                      <Input
-                        placeholder="In Time"
-                        onChange={(e) =>
-                          handleInTimeChange(
-                            student._id + "___" + student.user_id,
-                            e.target.value
-                          )
-                        }
-                      />
-                    </td>
-                    <td>
-                      <Input
-                        placeholder="Out Time"
-                        onChange={(e) =>
-                          handleOutTimeChange(
-                            student._id + "___" + student.user_id,
-                            e.target.value
-                          )
-                        }
-                      />
-                    </td>
-                  </tr>
-                ))}
-              <Button className="my-4" type="primary" onClick={handleSubmit}>
-                Mark Attendance
-              </Button>
-            </tbody>
-          </table>
+          <div className="table-responsive w-100">
+            <table className="table">
+              <thead>
+                <tr>
+                  <th>Student Name</th>
+                  <th>In Time</th>
+                  <th>Out Time</th>
+                </tr>
+              </thead>
+              <tbody>
+                {studentData &&
+                  studentData.map((student, index) => (
+                    <tr key={index}>
+                      <td>{student.student_name}</td>
+                      <td>
+                        <Input
+                          placeholder="In Time"
+                          className="attendance-input"
+                          onChange={(e) =>
+                            handleInTimeChange(
+                              student._id + "___" + student.user_id,
+                              e.target.value
+                            )
+                          }
+                        />
+                      </td>
+                      <td>
+                        <Input
+                          placeholder="Out Time"
+                          className="attendance-input"
+                          onChange={(e) =>
+                            handleOutTimeChange(
+                              student._id + "___" + student.user_id,
+                              e.target.value
+                            )
+                          }
+                        />
+                      </td>
+                    </tr>
+                  ))}
+              </tbody>
+            </table>
+          </div>
+
+          <Button className="mt-5" type="primary" onClick={handleSubmit}>
+            Mark Attendance
+          </Button>
         </div>
       </DashboardLayout>
     </>

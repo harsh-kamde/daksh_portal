@@ -12,7 +12,8 @@ import {
   FaBookOpen,
   FaLock,
   FaEye,
-  FaSignOutAlt
+  FaSignOutAlt,
+  FaClipboard
 } from "react-icons/fa";
 
 const DashboardSidebar = () => {
@@ -118,6 +119,20 @@ const DashboardSidebar = () => {
         {
           label: "Faculty List",
           key: "/view/faculty-list",
+          className: "sidebar-item",
+        },
+      ],
+    },
+
+    {
+      label: "Attendance",
+      key: "/attendance",
+      icon: <FaClipboard />,
+      className: "sidebar-tab",
+      children: [
+        {
+          label: "Mark Attendance",
+          key: "/attendance/mark-attendance",
           className: "sidebar-item",
         },
       ],

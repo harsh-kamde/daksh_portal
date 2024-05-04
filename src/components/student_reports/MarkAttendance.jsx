@@ -6,6 +6,7 @@ import DashboardLayout from "../dashboard/DashboardLayout";
 import moment from "moment";
 import { useAuth } from "../../store/auth";
 import { API_URL } from "../../store/apiurl";
+import { Outlet } from "react-router-dom";
 const attendance_url = `${API_URL}/api/v1/attendance/markAttendance`;
 const student_url = `${API_URL}/api/v1/student/getEnrolledStudents`;
 
@@ -18,6 +19,7 @@ const MarkAttendance = () => {
 
   const { courseData, authorizationToken } = useAuth();
   const [studentData, setStudentData] = useState();
+  const [attendanceData, setAttendanceData] = useState({});
 
   console.log("District : ", district);
   console.log("Course Data : ", courseData);
@@ -28,6 +30,49 @@ const MarkAttendance = () => {
   });
 
   const [selectedDate, setSelectedDate] = useState(null);
+  const inLat =
+    district === "Bhopal"
+      ? "23.259933"
+      : (district === "Raisen") === "23.3303"
+      ? district === "Morena"
+        ? "26.5000000"
+        : district === "Gwalior"
+        ? "26.218287"
+        : (district === "Bhind") === "26.558735"
+      : "21.825733";
+
+  const outLat =
+    district === "Bhopal"
+      ? "23.259933"
+      : (district === "Raisen") === "23.3303"
+      ? district === "Morena"
+        ? "26.5000000"
+        : district === "Gwalior"
+        ? "26.218287"
+        : (district === "Bhind") === "26.558735"
+      : "21.825733";
+
+  const inLong =
+    district === "Bhopal"
+      ? "77.412613"
+      : (district === "Raisen") === "77.7811"
+      ? district === "Morena"
+        ? "78.000000"
+        : district === "Gwalior"
+        ? "78.182831"
+        : (district === "Bhind") === "78.787280"
+      : "76.352570";
+
+  const outLong =
+    district === "Bhopal"
+      ? "77.412613"
+      : (district === "Raisen") === "77.7811"
+      ? district === "Morena"
+        ? "78.000000"
+        : district === "Gwalior"
+        ? "78.182831"
+        : (district === "Bhind") === "78.787280"
+      : "76.352570";
 
   const handleChange = (value, name) => {
     setFormData({ ...formData, [name]: value });
@@ -345,33 +390,63 @@ const MarkAttendance = () => {
     }
   };
 
-  const [attendanceData, setAttendanceData] = useState([]);
-
   const handleInTimeChange = (studentId, value) => {
-    const updatedData = attendanceData.map((data) =>
-      data.student_id === studentId ? { ...data, inTime: value } : data
-    );
-    setAttendanceData(updatedData);
+    setAttendanceData((prevData) => ({
+      ...prevData,
+      [studentId]: { ...prevData[studentId], inTime: value },
+    }));
   };
 
   const handleOutTimeChange = (studentId, value) => {
-    const updatedData = attendanceData.map((data) =>
-      data.student_id === studentId ? { ...data, outTime: value } : data
-    );
-    setAttendanceData(updatedData);
+    setAttendanceData((prevData) => ({
+      ...prevData,
+      [studentId]: { ...prevData[studentId], outTime: value },
+    }));
   };
-const handleSubmit = () => {
-  // Construct JSON object with student _id, inTime, and outTime
-  const requestData = attendanceData.map(({ student_id, inTime, outTime }) => ({
-    student_id,
-    inTime,
-    outTime,
-  }));
 
-  // Send requestData to API
-  console.log("Sending data:", requestData);
-};
+  const handleSubmit = async () => {
+    
+    console.log("Attendance Data:", attendanceData);
+    const formattedData = {
+      date: selectedDate,
+      attendance_data: attendanceData,
+      inLat: inLat,
+      inLong: inLong,
+      outLat: outLat,
+      outLong: outLong,
+    };
 
+    
+
+    // console.log(formattedData)
+
+    try {
+      const response = await fetch(attendance_url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: authorizationToken,
+        },
+        body: JSON.stringify(formattedData),
+      });
+
+      console.log(formattedData);
+
+      if (response.ok) {
+        alert("Attendance Marked Successfully!");
+        setAttendanceData({});
+      } else {
+        alert("Data not found :)");
+        setAttendanceData({});
+      }
+    } catch (error) {
+      alert("Server Error");
+    } finally {
+      // setIsLoading(false);
+    }
+
+    setAttendanceData({});
+  };
 
   return (
     <>
@@ -445,7 +520,10 @@ const handleSubmit = () => {
                       <Input
                         placeholder="In Time"
                         onChange={(e) =>
-                          handleInTimeChange(student._id, e.target.value)
+                          handleInTimeChange(
+                            student._id + "___" + student.user_id,
+                            e.target.value
+                          )
                         }
                       />
                     </td>
@@ -453,7 +531,10 @@ const handleSubmit = () => {
                       <Input
                         placeholder="Out Time"
                         onChange={(e) =>
-                          handleOutTimeChange(student._id, e.target.value)
+                          handleOutTimeChange(
+                            student._id + "___" + student.user_id,
+                            e.target.value
+                          )
                         }
                       />
                     </td>

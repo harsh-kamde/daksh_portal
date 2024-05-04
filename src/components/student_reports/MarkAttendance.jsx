@@ -407,20 +407,22 @@ const MarkAttendance = () => {
   const handleSubmit = async () => {
     console.log("Before Data:", attendanceData);
     console.log(studentData);
+    // Create a new object to store the updated attendance data
+    let updatedAttendanceData = {};
+
+    // Add all students to attendanceData if not already present
     studentData.forEach((student) => {
       const studentId = student._id + "___" + student.user_id;
-      if (!(studentId in attendanceData)) {
-        console.log("Hi i'm in the empty data logic");
-        setAttendanceData((prevData) => ({
-          ...prevData,
-          [studentId]: { inTime: "", outTime: "" }, // Set default values as empty string
-        }));
-      }
+      updatedAttendanceData[studentId] = {
+        inTime: attendanceData[studentId]?.inTime || "",
+        outTime: attendanceData[studentId]?.outTime || "",
+      };
     });
-    console.log("after empty values: ",attendanceData);
+    console.log("after empty values: ", updatedAttendanceData);
+
     const formattedData = {
       date: selectedDate,
-      attendance_data: attendanceData,
+      attendance_data: updatedAttendanceData,
       inLat: inLat,
       inLong: inLong,
       outLat: outLat,

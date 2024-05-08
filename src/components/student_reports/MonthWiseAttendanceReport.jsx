@@ -27,7 +27,11 @@ const MonthWiseAttendanceReport = () => {
     setActualAttendanceData,
     setCourseData,
     setBatchData,
+    role,
   } = useAuth();
+
+  const district = localStorage.getItem("district")?.replace(/"/g, "");
+  const userRole = role?.replace(/"/g, "");
 
   const handleChange = (value, name) => {
     setFormData({ ...formData, [name]: value });
@@ -73,9 +77,41 @@ const MonthWiseAttendanceReport = () => {
     }
   };
 
+  const stateOptions = () => {
+    if (userRole === "admin") {
+      return (
+        <>
+          <Option value="Madhya Pradesh">Madhya Pradesh</Option>
+          <Option value="Uttar Pradesh">Uttar Pradesh</Option>
+        </>
+      );
+    } else {
+      if (
+        district === "Bhopal" ||
+        district === "Raisen" ||
+        district === "Morena" ||
+        district === "Gwaliar" ||
+        district === "Bhind" ||
+        district === "Khandwa"
+      ) {
+        return (
+          <>
+            <Option value="Madhya Pradesh">Madhya Pradesh</Option>
+          </>
+        );
+      } else {
+        return (
+          <>
+            <Option value="Uttar Pradesh">Uttar Pradesh</Option>
+          </>
+        );
+      }
+    }
+  };
+
   const districtOptions = () => {
     if (formData.state === "Madhya Pradesh") {
-      return (
+      return userRole === "admin" ? (
         <>
           <Option value="Bhopal">Bhopal</Option>
           <Option value="Raisen">Raisen</Option>
@@ -84,12 +120,20 @@ const MonthWiseAttendanceReport = () => {
           <Option value="Bhind">Bhind</Option>
           <Option value="Khandwa">Khandwa</Option>
         </>
+      ) : (
+        <>
+          <Option value={district}>{district}</Option>
+        </>
       );
     } else if (formData.state === "Uttar Pradesh") {
-      return (
+      return userRole === "admin" ? (
         <>
           <Option value="Farrukhabad">Farrukhabad</Option>
           <Option value="Moradabad">Moradabad</Option>
+        </>
+      ) : (
+        <>
+          <Option value={district}>{district}</Option>
         </>
       );
     } else {
@@ -486,8 +530,7 @@ const MonthWiseAttendanceReport = () => {
                   placeholder="State"
                   value={formData.state}
                 >
-                  <Option value="Madhya Pradesh">Madhya Pradesh</Option>
-                  <Option value="Uttar Pradesh">Uttar Pradesh</Option>
+                  {stateOptions()}
                 </Select>
               </div>
             </div>

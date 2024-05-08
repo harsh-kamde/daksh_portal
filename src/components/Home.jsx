@@ -1,30 +1,32 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import DashboardLayout from "./dashboard/DashboardLayout";
 import "../stylesheets/Home.css";
 import { Button } from "antd";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../store/auth";
 
 import { API_URL } from "../store/apiurl";
 
 const Home = () => {
   const navigate = useNavigate();
 
-  const authorizationToken = localStorage.getItem("token");
+  const { role } = useAuth();
+  const userRole = role?.replace(/"/g, "");
 
+  const authorizationToken = localStorage.getItem("token");
 
   if (!authorizationToken) {
     navigate("/");
   }
 
-  
   const [studentCount, setStudentCount] = useState(0);
   const [centerCount, setCenterCount] = useState(0);
   const [batchCount, setBatchCount] = useState(0);
-  
-  console.log(authorizationToken);
-  console.log("Student count: ", studentCount);
-  console.log("Center count: ", centerCount);
-  console.log("Batch count: ", batchCount);
+
+  // console.log(authorizationToken);
+  // console.log("Student count: ", studentCount);
+  // console.log("Center count: ", centerCount);
+  // console.log("Batch count: ", batchCount);
 
   const fetchCounts = async () => {
     try {
@@ -44,8 +46,8 @@ const Home = () => {
         return acc;
       }, []);
 
-      console.log("Student Data: ", studentData);
-      
+      // console.log("Student Data: ", studentData);
+
       setStudentCount(uniqueStudentNames.length);
 
       // Fetch batch count
@@ -56,8 +58,8 @@ const Home = () => {
         },
       });
       const batchData = await batchResponse.json();
-      console.log("Batch Data is : ", batchData);
-      console.log("Batch Data: ", batchData);
+      // console.log("Batch Data is : ", batchData);
+      // console.log("Batch Data: ", batchData);
 
       const uniqueBatchNames = batchData.reduce((acc, curr) => {
         if (!acc.includes(curr.batch_name)) {
@@ -84,7 +86,7 @@ const Home = () => {
         return acc;
       }, []);
 
-      console.log("Center Data: ", centerData);
+      // console.log("Center Data: ", centerData);
 
       setCenterCount(uniqueCenterNames.length);
     } catch (error) {
@@ -99,55 +101,61 @@ const Home = () => {
   return (
     <>
       <DashboardLayout>
-        <div className="row mt-4">
-          <div className="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 mb-3">
-            <div className="info-card">
-              <span className="info-icon">
-                <i class="fa-solid fa-school"></i>
-              </span>
+        {userRole === "admin" ? (
+          <div className="row mt-4">
+            <div className="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 mb-3">
+              <div className="info-card">
+                <span className="info-icon">
+                  <i class="fa-solid fa-school"></i>
+                </span>
 
-              <h3 className="info-count">{studentCount}</h3>
+                <h3 className="info-count">{studentCount}</h3>
 
-              <p className="info-label">Total Students</p>
+                <p className="info-label">Total Students</p>
 
-              {/* <Button type="primary" size="medium">
+                {/* <Button type="primary" size="medium">
                 View
               </Button> */}
+              </div>
             </div>
-          </div>
 
-          <div className="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 mb-3">
-            <div className="info-card">
-              <span className="info-icon">
-                <i class="fa-solid fa-book-open-reader"></i>
-              </span>
+            <div className="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 mb-3">
+              <div className="info-card">
+                <span className="info-icon">
+                  <i class="fa-solid fa-book-open-reader"></i>
+                </span>
 
-              <h3 className="info-count">{batchCount}</h3>
+                <h3 className="info-count">{batchCount}</h3>
 
-              <p className="info-label">Total Batches Registered</p>
+                <p className="info-label">Total Batches Registered</p>
 
-              {/* <Button type="primary" size="medium">
+                {/* <Button type="primary" size="medium">
                 View
               </Button> */}
+              </div>
             </div>
-          </div>
 
-          <div className="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 mb-3">
-            <div className="info-card">
-              <span className="info-icon">
-                <i class="fa-solid fa-check"></i>
-              </span>
+            <div className="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 mb-3">
+              <div className="info-card">
+                <span className="info-icon">
+                  <i class="fa-solid fa-check"></i>
+                </span>
 
-              <h3 className="info-count">{centerCount}</h3>
+                <h3 className="info-count">{centerCount}</h3>
 
-              <p className="info-label">Total Centers</p>
+                <p className="info-label">Total Centers</p>
 
-              {/* <Button type="primary" size="medium">
+                {/* <Button type="primary" size="medium">
                 View
               </Button> */}
+              </div>
             </div>
           </div>
-        </div>
+        ) : (
+          <div>
+            <h4>Welcome Back to your Dashboard</h4>
+          </div>
+        )}
       </DashboardLayout>
     </>
   );

@@ -1,10 +1,15 @@
 import React, { useState, useEffect } from "react";
 import DashboardLayout from "../dashboard/DashboardLayout";
 import { API_URL } from "../../store/apiurl";
+import { useAuth } from "../../store/auth";
 
 const FacultyList = () => {
   const authorizationToken = localStorage.getItem("token");
   const [uniqueFacultyData, setUniqueFacultyData] = useState([]);
+
+  const district = localStorage.getItem("district")?.replace(/"/g, "");
+  const { role } = useAuth();
+  const userRole = role?.replace(/"/g, "");
 
   useEffect(() => {
     const fetchData = async () => {
@@ -60,14 +65,27 @@ const FacultyList = () => {
             </tr>
           </thead>
           <tbody>
-            {uniqueFacultyData.map((item, index) => (
-              <tr key={index}>
-                <td>{item.faculty_name}</td>
-                <td>{item.age}</td>
-                <td>{item.city}</td>
-                <td>{item.address}</td>
-              </tr>
-            ))}
+            {userRole === "admin"
+              ? uniqueFacultyData.map((item, index) => (
+                  <tr key={index}>
+                    <td>{item.faculty_name}</td>
+                    <td>{item.age}</td>
+                    <td>{item.city}</td>
+                    <td>{item.address}</td>
+                  </tr>
+                ))
+              : uniqueFacultyData
+                  .filter((item) => {
+                    return item.city === district;
+                  })
+                  .map((item, index) => (
+                    <tr key={index}>
+                      <td>{item.faculty_name}</td>
+                      <td>{item.age}</td>
+                      <td>{item.city}</td>
+                      <td>{item.address}</td>
+                    </tr>
+                  ))}
           </tbody>
         </table>
       </div>

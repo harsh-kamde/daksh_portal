@@ -27,6 +27,7 @@ const DashboardSidebar = () => {
   const [open, setOpen] = useState(false);
 
   const handleLogout = () => {
+    localStorage.removeItem("center_data");
     LogoutUser();
     navigate("/");
     alert("Logged out");

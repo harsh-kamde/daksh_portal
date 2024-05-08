@@ -1,9 +1,14 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "../../stylesheets/Header.css";
 
-const dataCenter = JSON.parse(localStorage.getItem("center_data")) || {};
-
 const Header = () => {
+  const [dataCenter, setDataCenter] = useState({});
+
+  useEffect(() => {
+    const centerData = JSON.parse(localStorage.getItem("center_data")) || {};
+    setDataCenter(centerData);
+  }, []);
+
   return (
     <>
       <header id="header" className="fixed-top navbar">

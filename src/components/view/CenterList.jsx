@@ -1,10 +1,15 @@
 import React, { useState, useEffect } from "react";
 import DashboardLayout from "../dashboard/DashboardLayout";
 import { API_URL } from "../../store/apiurl";
+import { useAuth } from "../../store/auth";
 
 const CenterList = () => {
   const authorizationToken = localStorage.getItem("token");
   const [uniqueCenterData, setUniqueCenterData] = useState([]);
+
+  const district = localStorage.getItem("district")?.replace(/"/g, "");
+  const { role } = useAuth();
+  const userRole = role?.replace(/"/g, "");
 
   useEffect(() => {
     const fetchData = async () => {
@@ -57,14 +62,27 @@ const CenterList = () => {
             </tr>
           </thead>
           <tbody>
-            {uniqueCenterData.map((item, index) => (
-              <tr key={index}>
-                <td>{item.center_name}</td>
-                <td>{item.state}</td>
-                <td>{item.district}</td>
-                <td>{item.address}</td>
-              </tr>
-            ))}
+            {userRole === "admin"
+              ? uniqueCenterData.map((item, index) => (
+                  <tr key={index}>
+                    <td>{item.center_name}</td>
+                    <td>{item.state}</td>
+                    <td>{item.district}</td>
+                    <td>{item.address}</td>
+                  </tr>
+                ))
+              : uniqueCenterData
+                  .filter((item) => {
+                    return item.city === district;
+                  })
+                  .map((item, index) => (
+                    <tr key={index}>
+                      <td>{item.center_name}</td>
+                      <td>{item.state}</td>
+                      <td>{item.district}</td>
+                      <td>{item.address}</td>
+                    </tr>
+                  ))}
           </tbody>
         </table>
       </div>

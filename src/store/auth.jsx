@@ -12,6 +12,7 @@ export const AuthProvider = ({ children }) => {
   const [courseData, setCourseData] = useState("");
   const [studentData, setStudentData] = useState("");
   const [batchData, setBatchData] = useState();
+  const [role, setRole] = useState();
   const [actualAttendanceData, setActualAttendanceData] = useState();
 
   const [monthlyAttendanceData, setMonthlyAttendanceData] = useState();
@@ -83,7 +84,9 @@ export const AuthProvider = ({ children }) => {
         courseData,
         setCourseData,
         actualAttendanceData,
-        setActualAttendanceData
+        setActualAttendanceData,
+        role,
+        setRole
       }}
     >
       {children}

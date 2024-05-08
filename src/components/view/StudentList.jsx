@@ -1,10 +1,21 @@
 import React, { useState, useEffect } from "react";
 import DashboardLayout from "../dashboard/DashboardLayout";
 import { API_URL } from "../../store/apiurl";
+import { useAuth } from "../../store/auth";
 
 const StudentList = () => {
   const authorizationToken = localStorage.getItem("token");
   const [uniqueStudentData, setUniqueStudentData] = useState([]);
+  const district = localStorage.getItem("district")?.replace(/"/g, "");
+
+  const { role } = useAuth();
+
+  const userRole = role?.replace(/"/g, "");
+
+  console.log("Role: ", role);
+  console.log("User Role: ", userRole);
+  console.log(userRole === "admin");
+  console.log(role === "admin");
 
   useEffect(() => {
     const fetchData = async () => {
@@ -30,6 +41,8 @@ const StudentList = () => {
         }, []);
 
         setUniqueStudentData(uniqueData);
+        console.log("District: ", district);
+
         console.log("Unique student data: ", uniqueData);
       } catch (error) {
         console.error("Error fetching data: ", error);
@@ -63,15 +76,29 @@ const StudentList = () => {
             </tr>
           </thead>
           <tbody>
-            {uniqueStudentData.map((item, index) => (
-              <tr key={index}>
-                <td>{item.student_name}</td>
-                <td>{item.user_id}</td>
-                <td>{item.category}</td>
-                <td>{item.city}</td>
-                <td>{item.address}</td>
-              </tr>
-            ))}
+            {userRole === "admin"
+              ? uniqueStudentData.map((item, index) => (
+                  <tr key={index}>
+                    <td>{item.student_name}</td>
+                    <td>{item.user_id}</td>
+                    <td>{item.category}</td>
+                    <td>{item.city}</td>
+                    <td>{item.address}</td>
+                  </tr>
+                ))
+              : uniqueStudentData
+                  .filter((item) => {
+                    return item.city === district;
+                  })
+                  .map((item, index) => (
+                    <tr key={index}>
+                      <td>{item.student_name}</td>
+                      <td>{item.user_id}</td>
+                      <td>{item.category}</td>
+                      <td>{item.city}</td>
+                      <td>{item.address}</td>
+                    </tr>
+                  ))}
           </tbody>
         </table>
       </div>

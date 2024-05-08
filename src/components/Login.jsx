@@ -1,31 +1,27 @@
 import React, { useState } from "react";
 import "../stylesheets/Form.css";
 import Header from "./common/Header";
-import { toast } from 'react-toastify';
-import { useNavigate } from 'react-router-dom';
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 import { useAuth } from "../store/auth";
 import { API_URL } from "../store/apiurl";
 const URL = `${API_URL}/api/v1/auth/admin-login`;
-
 
 const Login = () => {
   const navigate = useNavigate();
 
   const token = localStorage.getItem("token");
 
-  if(token){
+  if (token) {
     navigate("/dashboard");
   }
-
-  
 
   const [user, setUser] = useState({
     email: "",
     password: "",
   });
 
-
-  const { storeTokenInLS } = useAuth();
+  const { storeTokenInLS, setRole } = useAuth();
 
   const [isLoading, setIsLoading] = useState(false);
   const [errors, setErrors] = useState({});
@@ -55,14 +51,21 @@ const Login = () => {
         const data = await response.json();
         storeTokenInLS(data.token);
         localStorage.setItem("center_data", JSON.stringify(data.center));
-        console.log("center_data"+JSON.stringify(data.center));
-        navigate('/dashboard');
+        localStorage.setItem("district", JSON.stringify(data.center.district));
+        setRole(JSON.stringify(data.role));
+
+        console.log("My Data is: " + JSON.stringify(data));
+        console.log("My Center Data is: " + JSON.stringify(data.center));
+        console.log("My District is: " + JSON.stringify(data.center.district));
+        console.log("My Role is: " + JSON.stringify(data.role));
+
+        navigate("/dashboard");
         setUser({ email: "", password: "" });
       } else {
-        alert("Invalid credentials")
+        alert("Invalid credentials");
       }
     } catch (error) {
-      alert("Server Error")
+      alert("Server Error");
       toast.error("Invalid credentials");
       setErrors({ ...errors, login: error.message }); // Set login error
     } finally {
@@ -90,7 +93,9 @@ const Login = () => {
                   onChange={handleChange}
                   disabled={isLoading}
                 />
-                {errors.email && <div className="text-danger">{errors.email}</div>}
+                {errors.email && (
+                  <div className="text-danger">{errors.email}</div>
+                )}
               </div>
             </div>
 
@@ -108,7 +113,9 @@ const Login = () => {
                   onChange={handleChange}
                   disabled={isLoading}
                 />
-                {errors.password && <div className="text-danger">{errors.password}</div>}
+                {errors.password && (
+                  <div className="text-danger">{errors.password}</div>
+                )}
               </div>
             </div>
 

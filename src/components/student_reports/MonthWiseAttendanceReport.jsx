@@ -31,7 +31,7 @@ const MonthWiseAttendanceReport = () => {
   } = useAuth();
 
   const district = localStorage.getItem("district")?.replace(/"/g, "");
-  const userRole = role?.replace(/"/g, "");
+  const userRole = localStorage.getItem("role")?.replace(/"/g, "");
 
   const handleChange = (value, name) => {
     setFormData({ ...formData, [name]: value });
@@ -90,7 +90,7 @@ const MonthWiseAttendanceReport = () => {
         district === "Bhopal" ||
         district === "Raisen" ||
         district === "Morena" ||
-        district === "Gwaliar" ||
+        district === "Gwalior" ||
         district === "Bhind" ||
         district === "Khandwa"
       ) {
@@ -116,7 +116,7 @@ const MonthWiseAttendanceReport = () => {
           <Option value="Bhopal">Bhopal</Option>
           <Option value="Raisen">Raisen</Option>
           <Option value="Morena">Morena</Option>
-          <Option value="Gwaliar">Gwaliar</Option>
+          <Option value="Gwalior">Gwalior</Option>
           <Option value="Bhind">Bhind</Option>
           <Option value="Khandwa">Khandwa</Option>
         </>
@@ -176,8 +176,8 @@ const MonthWiseAttendanceReport = () => {
           <Option value="Customer Care Executive">
             Customer Care Executive
           </Option>
-          <Option value="Jute Products Stiching Operator">
-            Jute Products Stiching Operator
+          <Option value="Jute Products Stitching Operator">
+            Jute Products Stitching Operator
           </Option>
         </>
       );
@@ -193,8 +193,8 @@ const MonthWiseAttendanceReport = () => {
     } else if (formData.district === "Khandwa") {
       return (
         <>
-          <Option value="Jute Products Stiching Operator">
-            Jute Products Stiching Operator
+          <Option value="Jute Products Stitching Operator">
+            Jute Products Stitching Operator
           </Option>
           <Option value="Self Employed Tailor">Self Employed Tailor</Option>
         </>

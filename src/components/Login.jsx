@@ -52,6 +52,7 @@ const Login = () => {
         storeTokenInLS(data.token);
         localStorage.setItem("center_data", JSON.stringify(data.center));
         localStorage.setItem("district", JSON.stringify(data.center.district));
+        localStorage.setItem("role", JSON.stringify(data.role));
         setRole(JSON.stringify(data.role));
 
         console.log("My Data is: " + JSON.stringify(data));

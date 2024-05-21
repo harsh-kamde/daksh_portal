@@ -11,7 +11,8 @@ const Home = () => {
   const navigate = useNavigate();
 
   const { role } = useAuth();
-  const userRole = role?.replace(/"/g, "");
+  // const userRole = role?.replace(/"/g, "");
+  const userRole = localStorage.getItem("role")?.replace(/"/g, "");
 
   const authorizationToken = localStorage.getItem("token");
 

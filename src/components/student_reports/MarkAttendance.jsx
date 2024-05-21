@@ -157,8 +157,8 @@ const MarkAttendance = () => {
           <Option value="Customer Care Executive">
             Customer Care Executive
           </Option>
-          <Option value="Jute Products Stiching Operator">
-            Jute Products Stiching Operator
+          <Option value="Jute Products Stitching Operator">
+            Jute Products Stitching Operator
           </Option>
         </>
       );
@@ -174,8 +174,8 @@ const MarkAttendance = () => {
     } else if (district === "Khandwa") {
       return (
         <>
-          <Option value="Jute Products Stiching Operator">
-            Jute Products Stiching Operator
+          <Option value="Jute Products Stitching Operator">
+            Jute Products Stitching Operator
           </Option>
           <Option value="Self Employed Tailor">Self Employed Tailor</Option>
         </>

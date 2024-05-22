@@ -224,8 +224,8 @@ const MonthWiseAttendanceReport = () => {
 
   const centerOptions = () => {
     return (
-      <Option value="Mathura Devi Shiksha Prasar Evam Samaj Kalyan Samiti Bhopal">
-        Mathura Devi Shiksha Prasar Evam Samaj Kalyan Samiti Bhopal
+      <Option value="Mathura Devi Shiksha Prasar Evam Samaj Kalyan Samiti">
+        Mathura Devi Shiksha Prasar Evam Samaj Kalyan Samiti
       </Option>
     );
   };
